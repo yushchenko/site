@@ -1,0 +1,26 @@
+<!DOCTYPE html >
+
+<html lang="en">
+
+  <head>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <title>{% block title %}Valery Yushchenko's Site{% endblock %}</title>
+  </head>
+
+  <body>
+    <div id="header">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About Me</a></li>
+      </ul>
+    </div>
+
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+
+    <div id="footer">
+    </div>
+  </body>
+
+</html>
