@@ -1,9 +1,3 @@
-# print 'Content Type: text/plain'
-# print ''
-# print """Hi,
-# Welcome to Valery Yushchenko's web site.
-# Unfortunatelly, it's still under contruction... sorry for temporary inconvenience..."""
-
 import os
 
 from google.appengine.ext import webapp
@@ -16,9 +10,16 @@ class MainPage(webapp.RequestHandler):
         values = {}
         self.response.out.write(template.render(path, values))
 
+class AboutPage(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'markup/about.html')
+        values = {}
+        self.response.out.write(template.render(path, values))
 
-application = webapp.WSGIApplication([('/', MainPage)], debug=True);        
 
+application = webapp.WSGIApplication([('/', MainPage),
+                                      ('/about/', AboutPage)],
+                                     debug=True);        
 
 def main():
     run_wsgi_app(application)
