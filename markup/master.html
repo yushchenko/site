@@ -1,26 +1,32 @@
-<!DOCTYPE html >
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <html lang="en">
 
   <head>
+    <link rel="stylesheet" href="/styles/yui2.css" />
     <link rel="stylesheet" href="/styles/main.css" />
     <title>{% block title %}Valery Yushchenko's Site{% endblock %}</title>
   </head>
 
   <body>
-    <div id="header">
-      <h1>Valery Yushchenko</h1>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about/">About Me</a></li>
-      </ul>
-    </div>
+    <div id="doc">
 
-    <div id="content">
-      {% block content %}{% endblock %}
-    </div>
+      <div id="hd">
+        <h1>Valery Yushchenko</h1>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about/">About Me</a></li>
+        </ul>
+      </div>
 
-    <div id="footer">
+      <div id="bd">
+        {% block content %}{% endblock %}
+      </div>
+
+      <div id="ft">
+
+      </div>
+
     </div>
   </body>
 
