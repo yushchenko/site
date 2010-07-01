@@ -1,15 +1,14 @@
 /* 
+ * colors form my favorite twilight theme
+ *
  * blue #7587A6
  * brown #9B703F
+ * gray #5F5A60
  *
  */
 
-a { color: #7587A6 }
-a:visited { color: #9B703F }
-
-/* #hd { */
-/*     border-bottom: #7578A6 1px solid; */
-/* } */
+a { color: #7587A6; text-decoration: none; }
+a:hover { text-decoration: underline; }
 
 #hd h1 {
     margin-bottom: 5px;
