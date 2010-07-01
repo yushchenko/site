@@ -4,9 +4,9 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
 
-class MainPage(webapp.RequestHandler):
+class HomePage(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'markup/index.html')
+        path = os.path.join(os.path.dirname(__file__), 'markup/home.html')
         values = {}
         self.response.out.write(template.render(path, values))
 
@@ -17,7 +17,7 @@ class AboutPage(webapp.RequestHandler):
         self.response.out.write(template.render(path, values))
 
 
-application = webapp.WSGIApplication([('/', MainPage),
+application = webapp.WSGIApplication([('/', HomePage),
                                       ('/about/', AboutPage)],
                                      debug=True);        
 

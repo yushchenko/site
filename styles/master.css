@@ -1,0 +1,28 @@
+/* 
+ * blue #7587A6
+ * brown #9B703F
+ *
+ */
+
+a { color: #7587A6 }
+a:visited { color: #9B703F }
+
+/* #hd { */
+/*     border-bottom: #7578A6 1px solid; */
+/* } */
+
+#hd h1 {
+    margin-bottom: 5px;
+}
+
+#menu {
+    margin-bottom: 5px;
+}
+#menu a {
+    margin-right: 5px;
+}
+
+#bd {
+    padding-top: 10px;
+}
+

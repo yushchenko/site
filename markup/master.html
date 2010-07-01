@@ -3,8 +3,9 @@
 <html lang="en">
 
   <head>
-    <link rel="stylesheet" href="/styles/yui2.css" />
-    <link rel="stylesheet" href="/styles/main.css" />
+    {# Loading YUI2 css framework from Yahoo CDN #}
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/combo?2.8.1/build/reset-fonts-grids/reset-fonts-grids.css&2.8.1/build/base/base-min.css">
+    <link rel="stylesheet" href="/styles/master.css" />
     <title>{% block title %}Valery Yushchenko's Site{% endblock %}</title>
   </head>
 
@@ -13,10 +14,10 @@
 
       <div id="hd">
         <h1>Valery Yushchenko</h1>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about/">About Me</a></li>
-        </ul>
+        <div id="menu">
+          <a href="/">Home</a>
+          <a href="/about/">About Me</a>
+        </div>
       </div>
 
       <div id="bd">
