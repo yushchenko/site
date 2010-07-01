@@ -1,5 +1,5 @@
 /* 
- * colors form my favorite twilight theme
+ * colors form my favorite Emacs theme (Twilight)
  *
  * blue #7587A6
  * brown #9B703F
@@ -7,11 +7,17 @@
  *
  */
 
+
 a { color: #7587A6; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+#hd {
+    border-right: solid 1px #F1F1F1;
+}
+
 #hd h1 {
     margin-bottom: 5px;
+    color: #5F5A60;
 }
 
 #menu {
@@ -23,5 +29,15 @@ a:hover { text-decoration: underline; }
 
 #bd {
     padding-top: 10px;
+    min-height: 400px;
+    border-right: solid 1px #F1F1F1;
+    border-bottom: solid 1px #F1F1F1;
+}
+
+#ft {
+    padding-top: 5px;
+    text-align: right;
+    font-size: 85%;
+    color: #5F5A60;
 }
 
