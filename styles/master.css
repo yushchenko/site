@@ -28,7 +28,7 @@ h1,h2,h3,h4,h5,h6 { color: #5F5A60; }
 }
 
 #bd {
-    padding-top: 10px;
+    padding: 10px 10px 10px 0;
     min-height: 400px;
     border-right: solid 1px #E1E1E1;
     border-bottom: solid 1px #E1E1E1;
