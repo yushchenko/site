@@ -1,0 +1,10 @@
+* TODOs
+  - create my card (JSON format)
+  - add licence info (GPL+MIT, CC)
+  - template for article's header - date, header, place for tags so on
+  - put code on GitHub
+  - 
+
+* Writing
+  - [in progress] Site from Scratch 0: Introduction
+  - [in progress] About

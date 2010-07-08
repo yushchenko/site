@@ -6,13 +6,13 @@ from google.appengine.ext.webapp import template
 
 class HomePage(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'markup/home.html')
+        path = os.path.join(os.path.dirname(__file__), 'templates/home.html')
         values = {}
         self.response.out.write(template.render(path, values))
 
 class AboutPage(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'markup/about.html')
+        path = os.path.join(os.path.dirname(__file__), 'templates/about.html')
         values = {}
         self.response.out.write(template.render(path, values))
 
