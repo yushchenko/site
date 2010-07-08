@@ -1,0 +1,31 @@
+
+/*
+ * Lucida Console
+ *
+ */
+
+#cardContainer {
+    text-align: center;
+    padding-top: 2em;
+}
+
+#card {
+    text-align: left;
+    margin: auto;
+    border-radius: 3px;
+    width: 27em;
+    color: #F8F8F8;
+    background: #141414;
+    font-family: Lucida Console, monospace;
+    padding: 10px;
+}
+
+span.keyword { color: #CDA869; }
+span.var { color: #7587A6; }
+span.string { color: #8F9D6A; }
+
+span.field {
+    display: inline-block;
+    margin-left: 4em;
+    width: 100px;
+}
