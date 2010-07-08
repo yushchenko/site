@@ -9,7 +9,7 @@ One needs, for example, to register a domain, find a hosting, develop or adopt a
 This long todo list is limited only by creator's ambitions and imagination.
 
 First of all, why not to use existing solutions?
-There are many fasionable such called Web 2.0 services which let us create and publish content.
+There are many fasionable Web 2.0 services which let us create and publish content.
 Handreds and thousands blog spots, wikis, social networks allow to share your writing, pictures, links, contacts...
 Seems very simple but everything comes with it's own price.
 
