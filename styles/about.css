@@ -1,12 +1,13 @@
 
-/*
- * Lucida Console
- *
- */
+#photo {
+    float: right;
+    margin-left: 50px;
+}
 
 #cardContainer {
     text-align: center;
-    padding-top: 2em;
+    padding-top: 4em;
+    margin-right: 200px;
 }
 
 #card {
