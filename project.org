@@ -1,10 +1,18 @@
 * TODOs
-  - add licence info (GPL+MIT, CC)
+  - add licence info (GPL+MIT)
   - template for article's header - date, header, place for tags so on
   - separate page for article
   - add photo on about page
+  - chage directory structure (content, markup, src)
+  - 
 
-* Writing
+* Writings
   - [in progress] Site from Scratch 0: Introduction
   - [] Site from Scratch 1: The First Page
   - [draft done, revise] About
+  - 
+
+* Ideas
+  - keep header, date, tags etc in markdowns metadata,
+    during html generation generate python file which contains all this data in code (array)
+  - 
