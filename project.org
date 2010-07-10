@@ -1,8 +1,10 @@
 * TODOs
   - add licence info (GPL+MIT, CC)
   - template for article's header - date, header, place for tags so on
+  - separate page for article
   - add photo on about page
 
 * Writing
   - [in progress] Site from Scratch 0: Introduction
+  - [] Site from Scratch 1: The First Page
   - [draft done, revise] About
