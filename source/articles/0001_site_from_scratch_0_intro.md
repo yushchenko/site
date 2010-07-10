@@ -1,17 +1,18 @@
-## [Jul .. 2010] Site from Scratch 0: Introduction
+## [Jul 10 2010] Site from Scratch 0: Introduction
 
 ### The Idea
 
-I have been thinking about having my own place in the Internet for many years.
-Time was comming but the dream remained just a dream probably because it had never been the real necessity for me.
-On the other hand, building of a site it's a big pale of problems for an unprepared person. 
-One needs, for example, to register a domain, find a hosting, develop or adopt an engine and so on so on.
-This long todo list is limited only by creator's ambitions and imagination.
+I have been thinking about having own place in the Internet for many years.
+Time was coming but the dream remained just a dream probably because it had never been the real necessity for me.
+On the other hand, building of a site it's a big pile of problems for an unprepared person. 
+One needs, for example, to register a domain, find a hosting, develop or adopt a site engine and so on so on.
+This long list is limited only by creator's ambitions and imagination.
 
-First of all, why not to use existing solutions?
-There are many fasionable Web 2.0 services which let us create and publish content.
-Handreds and thousands blog spots, wikis, social networks allow to share your writing, pictures, links, contacts...
-Seems very simple but everything comes with it's own price.
+
+Why all, why not to use existing solutions?
+There are many fashionable Web 2.0 services which let us create and publish content.
+Hundreds and thousands blog spots, wikis, social networks allow to share your writing, pictures, links, contacts...
+Seems very simple but everything comes with its own price.
 
 The first and the most important concern is lack of control.
 Let imagine, I've established a blog on [blogger.com](http://www.blogger.com).
@@ -25,16 +26,67 @@ For instance, using blog it's extremely easy to publish articles and share photo
 But what should be done if I want to create a small JavaScript application to enrich my developer's portfolio? 
 Use another service and link it? But I want put it *inside* my last article...
 
-It could sound a bit strange but it's looks like like that I'm willing to spend my time to get *exactly* what I want.
+It could sound a bit strange but it's looks like that I'm willing to spend my time to get *exactly* what I want.
 Not more but not less.
 
-The last but not the least thing is the simple fact that creation something from scatch can be extremely interesting.
-Unfortunatelly or not, but it rarely happens when a programmer gets oportunity to create something on his own mind at work.
-So I'm going to have a great fun developing at least my own web site.
+There are two ways to do so.
+The first one is usage of an existing solution such as CMS, blog engine or framework.
+Spend more or less time for studying, set up and configuration, customization and fixing of strange bugs...
+It's a usual way how we do things done at work, isn't it?
+And this approach works really good while the solution is used how it was thought by its creator.
+A step aside costs much more than ten or even hundred steps forward.
+So it's crucial to choose the right solution that fits one's needs as close as it's possible.
+But right now I don't know precisely what I want to create.
+This reason leads me to the second way - to create own solution from blank sheet.
 
-### The Initial Requirements
+The last but not the least thing is the simple fact that creation something from scratch can be extremely interesting.
+Unfortunately or not, but it rarely happens when a programmer gets opportunity to create something on his own mind at work.
+So I'm going to have a great fun developing at least my website.
+
+### The Requirements
+
+The major requirement is simplicity.
+The simplest implementation is the best.
+For example, the most widespread way of data representation is text format.
+Why? Because it's simple.
+So I'm going to keep all stuff editable in Emacs (you can replace it with your favorite editor)
+unless it's really impractical (images is a good example).
+By the way, storing an article in text allows to see diffs (using a VCS is a good habit),
+have several versions of the text and easily or even automatically merge them and use grep and other utils.
+It also helps keep my mind healthy because minimizes usage of M$ Word or other products
+created for such called 'stupid users'.
+Binary formats and databases are great only when they are used on proper place.
+
+So let keep everything simple including this 'requirements' and let space for creativity.
 
 ### The Technologies
 
+On client side life's simple.
+I need only HTML, CSS and JavaScript. No Flash. No SilverLight.
+Keep it simple and it will work everywhere.
+There is a space for usage of an appropriate JavaScript library, for example jQuery, to not reinvent the wheel.
+
+On server-side there are much more options. Let's narrow it.
+First of all, I love dynamic languages.
+It's a pain to switch between dynamic (JavaScript) and static (e.g. C# or Java) languages all the time.
+For small application written by one person client and server sides should fit well.
+Next, the language should be stable and have plenty of libraries.
+Writing the one hundred first implementation of RSS is not so exiting.
+And at the end, I'm too lazy to study a new language especially for project.
+So there is only one candidate at the rest, it's [Python](http://www.python.org) programming language.
+
+There is also problem with hosting. 
+I'm definitely not a system administrator, love rather to create than thinker stuff.
+So I would like to have set up and trouble-free hosting.
+I thought that it's just illusion until I find [Google App Engine](https://appengine.google.com/).
+It's a great example of solving problem adding extra level of abstraction.
+In this case, it's abstraction between me as a developer and the hosting.
+And it supports Python as first class citizen so no way to escape, I'm catch.
+
 ### What next?
+
+The answer is easy, as long way starts form the first step as a site begins form the first page.
+
+
+
 
