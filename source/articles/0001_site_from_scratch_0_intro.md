@@ -92,7 +92,3 @@ And it supports Python as first class citizen so no way to escape, I'm catch.
 
 The answer is easy, as long way starts form the first step as a site begins form
 [the first page](/blog/site-from-scratch-1-the-first-page).
-
-
-
-
