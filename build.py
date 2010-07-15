@@ -9,26 +9,24 @@ md.convertFile(input="source/about.md",
                encoding="utf8")
 
 
-def get_article(meta):
-    return { 'id': meta[u'id'][0],
-             'title': meta['title'][0],
-             'date': meta['date'][0]}
-
 src_dir = 'source/articles'
 out_dir = 'content/articles'
 lst = []
 
-f = open('articles.py', 'w')
+def get_article(meta, out_file_name):
+    return {'id': meta[u'id'][0],'title': meta['title'][0], 'date': meta['date'][0],
+            'file': out_file_name }
 
 for name in os.listdir(src_dir):
+    out_file_name = name.replace('.md', '.html')
     md.convertFile(input = os.path.join(src_dir, name),
-                   output = os.path.join(out_dir, name.replace('.md', '.html')),
+                   output = os.path.join(out_dir, out_file_name),
                    encoding = 'utf8')
-    print get_article(md.Meta)
-    lst.append(get_article(md.Meta))
+    
+    lst.append(get_article(md.Meta, out_file_name))
 
-f.write(str(lst))                       # serialization, love Python :)
-
+f = open('articles.py', 'w')
+f.write('list = ' + str(lst))                       # serialization, love Python :)
 f.close()
 
 print "Done."

@@ -2,8 +2,10 @@
 
 {% block content %}
 
-{% include "../content/articles/0002_site_from_scratch_1_the_first_page.html" %}
+{% for article in articles %}
 
-{% include "../content/articles/0001_site_from_scratch_0_intro.html" %}
+    {{article.content}}
+
+{% endfor %}
 
 {% endblock %}
