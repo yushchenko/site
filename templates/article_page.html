@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+
+{% block content %}
+
+{% if article.id %}
+    {% include "article.html" %}
+{% else %}
+    Oops! Requested article could not be found. <br />
+    But there are several other to read: <br />
+    ...
+    {# TODO: add list of existing articles #}
+{% endif %}
+
+{% endblock %}
