@@ -2,6 +2,8 @@ title:  Site from Scratch 0: Introduction
 date:   July 10, 2010
 id:     site-from-scratch-0-introduction
 tags:   site,development
+status: published
+
 
 ### The Idea
 
@@ -90,7 +92,7 @@ And it supports Python as the first class citizen so no way to escape, I'm catch
 
 ### What next?
 
-The answer is easy, as long way starts form the first step as a site begins form [the first page][next-article].
+The answer is easy, as long way starts form the first step as a site begins from the first page.
 
 
 

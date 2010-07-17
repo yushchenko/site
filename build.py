@@ -1,6 +1,6 @@
 import os
 import markdown
-
+from datetime import datetime
 
 md = markdown.Markdown(extensions = ['meta'])
 
@@ -14,7 +14,9 @@ out_dir = 'content/articles'
 lst = []
 
 def get_article(meta, out_file_name):
-    return {'id': meta[u'id'][0],'title': meta['title'][0], 'date': meta['date'][0],
+    dt = datetime.strptime(meta['date'][0], '%B %d, %Y') # July 10, 2010
+    return {'id': meta[u'id'][0],'title': meta['title'][0], 'status': meta['status'][0],
+            'date': dt.strftime('%Y-%m-%d'), 'month': dt.strftime('%b'), 'day': dt.day, 'year': dt.year,
             'file': out_file_name }
 
 for name in os.listdir(src_dir):
@@ -23,7 +25,12 @@ for name in os.listdir(src_dir):
                    output = os.path.join(out_dir, out_file_name),
                    encoding = 'utf8')
     
-    lst.append(get_article(md.Meta, out_file_name))
+    article = get_article(md.Meta, out_file_name)
+
+    if article['status'] == 'published':
+        lst.append(get_article(md.Meta, out_file_name))
+
+lst.sort(key = lambda a: a['date'], reverse = True)
 
 f = open('articles.py', 'w')
 f.write('list = ' + str(lst))                       # serialization, love Python :)

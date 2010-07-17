@@ -1,7 +1,14 @@
 
-<h2>
-    [{{article.date}}]
-    <a href='{{article.link}}'>{{ article.title }}</a>
+<h2 class='article-header ui-helper-clearfix'>
+
+  <div class='article-date'>
+    <div class='article-month'>{{article.month}}</div>
+    <div class='article-day'>{{article.day}}</div>
+    <div class='article-year'>{{article.year}}</div>
+  </div>
+
+  <a href='{{article.link}}'>{{ article.title }}</a>
+
 </h2>
 
 {% include article.path %}
