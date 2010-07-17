@@ -3,7 +3,7 @@
  *
  * blue #7587A6 (links)
  * gray #5F5A60 (titles)
- * light gray #E1E1E1 (borders)
+ * light gray #D1D1D1 (borders)
  *
  */
 
@@ -25,7 +25,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 #hd {
-    border-right: solid 1px #E1E1E1;
+    border-right: solid 1px #D1D1D1;
     padding-bottom: 15px;
 }
 
