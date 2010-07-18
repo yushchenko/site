@@ -1,17 +1,16 @@
 * TODOs
   - add licence info (GPL+MIT) to README
-  - template for article's header - date, header, place for tags so on
-  - create separate page for article
   - chage directory structure (content, markup, src)
   - register in Google Webmaster Tools
+  - title proper title on article page
 
 * Writings
-  - [in progress] Site from Scratch 0: Introduction
   - [] Site from Scratch 1: The First Page
-  - [draft done, revise] About
+  - [draft] jQuery Performance Tips from Paul Irish
   - 
-
-* Ideas
-  - keep header, date, tags etc in markdowns metadata,
-    during html generation generate python file which contains all this data in code (array)
-  - 
+    
+* Ideas & Features
+  - RSS feed
+  - Comments
+  - Tags
+  - Code coloring

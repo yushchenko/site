@@ -87,3 +87,7 @@ h2.article-header {
     font-size: 55%;
     color: black;
 }
+
+.article-content {
+    margin-bottom: 30px;
+}
