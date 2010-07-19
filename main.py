@@ -9,7 +9,7 @@ def path(name):
     return os.path.join(os.path.dirname(__file__), name)
 
 def article_path(article):
-    return os.path.join(os.path.dirname(__file__), 'content/articles', article['file'])
+    return os.path.join(os.path.dirname(__file__), 'markup/content/articles', article['file'])
 
 class HomePage(webapp.RequestHandler):
 
@@ -20,11 +20,11 @@ class HomePage(webapp.RequestHandler):
         for a in articles.list:
             a['path'] = article_path(a)
             a['link'] = '/blog/' + a['id']
-            a['content'] = template.render('templates/article.html', { 'article': a })
+            a['content'] = template.render('markup/article.html', { 'article': a })
 
         values = { 'articles': articles.list }
         
-        self.response.out.write(template.render(path('templates/home.html'), values))
+        self.response.out.write(template.render(path('markup/pages/home.html'), values))
 
 
 class ArticlePage(webapp.RequestHandler):
@@ -41,14 +41,14 @@ class ArticlePage(webapp.RequestHandler):
 
     def get(self, id):
         article =  self.get_article_by_id(id)
-        self.response.out.write(template.render( path('templates/article_page.html'),
+        self.response.out.write(template.render( path('markup/pages/article.html'),
                                                  {'article': article} ))
 
 
 class AboutPage(webapp.RequestHandler):
     def get(self):
         values = {}
-        self.response.out.write(template.render(path('templates/about.html'), values))
+        self.response.out.write(template.render(path('markup/pages/about.html'), values))
 
 
 application = webapp.WSGIApplication([

@@ -1,11 +1,10 @@
 * TODOs
   - add licence info (GPL+MIT) to README
-  - chage directory structure (content, markup, src)
-  - register in Google Webmaster Tools
   - title proper title on article page
+  - move python code into source folder
 
 * Writings
-  - [] Site from Scratch 1: The First Page
+  - [in progress] Site from Scratch 1: The First Page
   - [draft] jQuery Performance Tips from Paul Irish
   - 
     
@@ -13,4 +12,4 @@
   - RSS feed
   - Comments
   - Tags
-  - Code coloring
+  - Code coloring (client side, background)

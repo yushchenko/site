@@ -4,13 +4,13 @@ from datetime import datetime
 
 md = markdown.Markdown(extensions = ['meta'])
 
-md.convertFile(input="source/about.md",
-               output="content/about.html",
+md.convertFile(input="content/about.md",
+               output="markup/content/about.html",
                encoding="utf8")
 
 
-src_dir = 'source/articles'
-out_dir = 'content/articles'
+src_dir = 'content/articles'
+out_dir = 'markup/content/articles'
 lst = []
 
 def get_article(meta, out_file_name):
