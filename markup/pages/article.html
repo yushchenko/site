@@ -1,5 +1,7 @@
 {% extends "../master.html" %}
 
+{% block title %}{% if article.id %} {{article.title}} {% else %} Article not found. {% endif %}{% endblock %}
+
 {% block content %}
 
 {% if article.id %}
