@@ -24,7 +24,7 @@ The simplest routing contains just two lines of code:</p>
 <pre><code>- url: /.*                # take any request to the site
   script: main.py         # and run code from main.py to generate response
 </code></pre>
-<p>At the begining of the <code>app.yaml</code> should be description of owr app:</p>
+<p>At the begining of the <code>app.yaml</code> should be description of the app:</p>
 <pre><code>application: site
 version: 1
 </code></pre>
@@ -36,11 +36,62 @@ api_version: 1
 and the site's ready to respond on incoming requests executing code in <code>main.py</code>
 so it's a nice time to proceed with the next step.</p>
 <h3>Markup Generation</h3>
-<p><code>main.py</code> file contains the simple Python code:</p>
-<pre><code>print 'Content-Type: text/html; charset=utf-8'   # let the browser know that it's getting html
-print ''
-print 'Hello, world!'              # return response content - the text itself
+<p>App Engine Webapp framework includes Django templating engine.
+Django templates is a powerfull mean of generation of text in any format including HTML and CSS.
+As you remember, the initial step should be in the right direction so
+the first Django's feature I'm going to use is <a href="http://www.djangoproject.com/documentation/0.96/templates/#template-inheritance" title="Django documentation: template inheritance">template enheritance</a>.
+In nutshell, it allows create many pages with the same structure but different content.</p>
+<p><code>master.html</code> contains doctype and all tags required for well formed html document
+plus simple grid's markup for using YUI CSS framework.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    ...                                  {% templatetag opencomment %} links to ccs style sheets #}
+    &lt;title&gt;{% templatetag openblock %} block title % }Valery Yushchenko{% templatetag openblock %} endblock % }&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="doc"&gt;
+
+      &lt;div id="hd"&gt;
+      ...                                {% templatetag opencomment %} header content #}
+      &lt;/div&gt;
+
+      &lt;div id="bd"&gt;
+        {% templatetag openblock %} block content %}{% templatetag openblock %} endblock %}
+      &lt;/div&gt;
+
+      &lt;div id="ft"&gt;
+      ...                                {% templatetag opencomment %} footer content #}
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
 </code></pre>
+<p><code>home.html</code> inherits from <code>master.html</code> and provides contents for master's blocks:</p>
+<pre><code>{% templatetag openblock %} extends "master.html" %}
+
+{% templatetag openblock %} block content %}
+
+Hello World!                             {% templatetag opencomment %} text to display #}
+
+{% templatetag openblock %} endblock %}
+</code></pre>
+<p>Now let's allow Django render these templates putting the following code into <code>main.py</code>:</p>
+<pre><code>import...
+
+print 'Content-Type: text/html8'          # let the browser know that it's getting html
+print ''
+print                                     # return response content - the text itself
+</code></pre>
+<p>At this point, there are four files in applicaiton's directory:</p>
+<pre><code>.../site:
+-rw-rw-rw-  ... Jul 20 23:03 app.yaml
+-rw-rw-rw-  915 Jul 20 23:03 main.py
+-rw-rw-rw-  482 Jul 20 23:54 master.html
+-rw-rw-rw- 1928 Jul 20 23:40 home.html
+</code></pre>
+<p>and the application is ready to run.</p>
 <h3>Adding Styles</h3>
 <h3>Links</h3>
 <ol>

@@ -39,7 +39,7 @@ The simplest routing contains just two lines of code:
     - url: /.*                # take any request to the site
       script: main.py         # and run code from main.py to generate response
 
-At the begining of the `app.yaml` should be description of owr app:
+At the begining of the `app.yaml` should be description of the app:
 
     application: site
     version: 1
@@ -49,21 +49,73 @@ and its runtime:
     runtime: python
     api_version: 1
 
-
 At this stage basic configuration is done
 and the site's ready to respond on incoming requests executing code in `main.py`
 so it's a nice time to proceed with the next step.
 
 ### Markup Generation
 
+App Engine Webapp framework includes Django templating engine.
+Django templates is a powerfull mean of generation of text in any format including HTML and CSS.
+As you remember, the initial step should be in the right direction so
+the first Django's feature I'm going to use is [template enheritance][django-template-inheritance].
+In nutshell, it allows create many pages with the same structure but different content.
 
-`main.py` file contains the simple Python code:
+`master.html` contains doctype and all tags required for well formed html document
+plus simple grid's markup for using YUI CSS framework.
 
-    print 'Content-Type: text/html; charset=utf-8'   # let the browser know that it's getting html
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        ...                                  {% templatetag opencomment %} links to ccs style sheets #}
+        <title>{% templatetag openblock %} block title % }Valery Yushchenko{% templatetag openblock %} endblock % }</title>
+      </head>
+      <body>
+        <div id="doc">
+    
+          <div id="hd">
+          ...                                {% templatetag opencomment %} header content #}
+          </div>
+    
+          <div id="bd">
+            {% templatetag openblock %} block content %}{% templatetag openblock %} endblock %}
+          </div>
+    
+          <div id="ft">
+          ...                                {% templatetag opencomment %} footer content #}
+          </div>
+    
+        </div>
+      </body>
+    </html>
+
+`home.html` inherits from `master.html` and provides contents for master's blocks:
+
+    {% templatetag openblock %} extends "master.html" %}
+    
+    {% templatetag openblock %} block content %}
+
+    Hello World!                             {% templatetag opencomment %} text to display #}
+    
+    {% templatetag openblock %} endblock %}
+    
+Now let's allow Django render the templates putting the following code into `main.py`:
+
+    import...
+    
+    print 'Content-Type: text/html8'          # let the browser know that it's getting html
     print ''
-    print 'Hello, world!'              # return response content - the text itself
+    print                                     # return response content - the text itself
 
+At this point, there are four files in applicaiton's directory:
 
+    .../site:
+    -rw-rw-rw-  ... Jul 20 23:03 app.yaml
+    -rw-rw-rw-  915 Jul 20 23:03 main.py
+    -rw-rw-rw-  482 Jul 20 23:54 master.html
+    -rw-rw-rw- 1928 Jul 20 23:40 home.html
+
+and the application is ready to run.
 
 ### Adding Styles
 
@@ -78,10 +130,11 @@ so it's a nice time to proceed with the next step.
 
 
 
-
 [name.com]: http://www.name.com "Name.com web site"
 [name-com-wiki]:http://en.wikipedia.org/wiki/Name.com "Wiki article about name.com"
 [app-engine]: http://appengine.google.com/ "Google App Engine"
+[django-template-inheritance]:http://www.djangoproject.com/documentation/0.96/templates/#template-inheritance "Django documentation: template inheritance"
+
 [s0]: /blog/site-from-scratch-0-introduction "The first article about bilding own site"
 [app-engine-tutorial]: http://code.google.com/appengine/docs/python/gettingstarted/ "Python App Engine tutorial"
 [django-doc]: http://www.djangoproject.com/documentation/0.96/templates/ "Django templates, version 0.96"
