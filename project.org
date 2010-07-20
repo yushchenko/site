@@ -5,9 +5,12 @@
   - add separate error page with article list
   - 
 
+
 * Writings
   - [in progress] Site from Scratch 1: The First Page
+  - [idea] Underscore - LINQ for JavaScript
   - 
+
     
 * Ideas & Features
   - RSS feed
@@ -15,3 +18,5 @@
   - Tags
   - Code coloring (client side, background)
   - View Management: paging, sorting, short/detailed etc
+  - Small tool tip with my photo and greating upon site's header
+  - 

@@ -17,12 +17,16 @@ class HomePage(webapp.RequestHandler):
 
         import articles
 
-        for a in articles.list:
-            a['path'] = article_path(a)
-            a['link'] = '/blog/' + a['id']
-            a['content'] = template.render('markup/article.html', { 'article': a })
+        publishedArticles = [];
 
-        values = { 'articles': articles.list }
+        for a in articles.list:
+            if a['status'] == 'published':
+                a['path'] = article_path(a)
+                a['link'] = '/blog/' + a['id']
+                a['content'] = template.render('markup/article.html', { 'article': a })
+                publishedArticles.append(a);
+
+        values = { 'articles': publishedArticles }
         
         self.response.out.write(template.render(path('markup/pages/home.html'), values))
 

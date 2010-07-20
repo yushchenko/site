@@ -27,7 +27,7 @@ for name in os.listdir(src_dir):
     
     article = get_article(md.Meta, out_file_name)
 
-    if article['status'] == 'published':
+    if article['status'] == 'published' or article['status'] == 'draft':
         lst.append(get_article(md.Meta, out_file_name))
 
 lst.sort(key = lambda a: a['date'], reverse = True)
