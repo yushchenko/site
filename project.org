@@ -3,10 +3,10 @@
   - move python code into source folder
   - remove useless links (Home -> Home, Article -> Article)
   - add separate error page with article list
+  - 
 
 * Writings
   - [in progress] Site from Scratch 1: The First Page
-  - [checking by Natasha] jQuery Performance Tips from Paul Irish
   - 
     
 * Ideas & Features
