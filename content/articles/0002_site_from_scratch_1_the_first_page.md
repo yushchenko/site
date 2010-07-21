@@ -134,7 +134,6 @@ So, it's a good moment to style our page.
 ### Adding Styles
 
 
-
 ### Links
 
 0. The first article of this cycle - [Site from Scratch 0: Introduction][s0];
