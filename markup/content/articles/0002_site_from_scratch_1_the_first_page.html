@@ -21,7 +21,9 @@ For example, link to this article should look something like this:</p>
 For <a href="http://appengine.google.com/" title="Google App Engine">Google App Engine</a> it can be configured either in <code>app.yaml</code> configuration file or
 in webapp framework configuration.
 The simplest routing contains just two lines of code:</p>
-<pre><code>- url: /.*                # take any request to the site
+<pre><code>handlers:
+
+- url: /.*                # take any request to the site
   script: main.py         # and run code from main.py to generate response
 </code></pre>
 <p>At the begining of the <code>app.yaml</code> should be description of the app:</p>
@@ -77,21 +79,32 @@ Hello World!                             {% templatetag opencomment %} text to d
 
 {% templatetag openblock %} endblock %}
 </code></pre>
-<p>Now let's allow Django render these templates putting the following code into <code>main.py</code>:</p>
-<pre><code>import...
+<p>Now let's allow Django render the from the template putting the following code into <code>main.py</code>:</p>
+<pre><code>import os
+from google.appengine.ext.webapp import template
 
-print 'Content-Type: text/html8'          # let the browser know that it's getting html
+home_file = os.path.join(os.path.dirname(__file__), 'home.html')
+
+print 'Content-Type: text/html'           # let the browser know that it's getting html
 print ''
-print                                     # return response content - the text itself
+print template.render(home_file, {})      # return response content - the text itself
 </code></pre>
 <p>At this point, there are four files in applicaiton's directory:</p>
-<pre><code>.../site:
--rw-rw-rw-  ... Jul 20 23:03 app.yaml
--rw-rw-rw-  915 Jul 20 23:03 main.py
--rw-rw-rw-  482 Jul 20 23:54 master.html
--rw-rw-rw- 1928 Jul 20 23:40 home.html
+<pre><code>.../site/content/samples/site_from_scratch:
+...
+-rw-rw-rw- 115 Jul 21 08:13 app.yaml
+-rw-rw-rw-  86 Jul 21 08:18 home.html
+-rw-rw-rw- 321 Jul 21 08:30 main.py
+-rw-rw-rw- 814 Jul 21 08:17 master.html
 </code></pre>
-<p>and the application is ready to run.</p>
+<p>and the application is ready to run.
+Type the following commands:</p>
+<pre><code>cd site/content/samples
+dev_appserver.py site_from_scratch
+</code></pre>
+<p>and visit <code>http://localhost:8080/</code>.
+Looks not so good, doesn't it? 
+So, it's a good moment to style our page.</p>
 <h3>Adding Styles</h3>
 <h3>Links</h3>
 <ol>

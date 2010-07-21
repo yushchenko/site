@@ -36,6 +36,8 @@ For [Google App Engine][app-engine] it can be configured either in `app.yaml` co
 in webapp framework configuration.
 The simplest routing contains just two lines of code:
 
+    handlers:
+
     - url: /.*                # take any request to the site
       script: main.py         # and run code from main.py to generate response
 
@@ -99,23 +101,35 @@ plus simple grid's markup for using YUI CSS framework.
     
     {% templatetag openblock %} endblock %}
     
-Now let's allow Django render the templates putting the following code into `main.py`:
+Now let's allow Django render the from the template putting the following code into `main.py`:
 
-    import...
+    import os
+    from google.appengine.ext.webapp import template
     
-    print 'Content-Type: text/html8'          # let the browser know that it's getting html
+    home_file = os.path.join(os.path.dirname(__file__), 'home.html')
+    
+    print 'Content-Type: text/html'           # let the browser know that it's getting html
     print ''
-    print                                     # return response content - the text itself
+    print template.render(home_file, {})      # return response content - the text itself
+
 
 At this point, there are four files in applicaiton's directory:
 
-    .../site:
-    -rw-rw-rw-  ... Jul 20 23:03 app.yaml
-    -rw-rw-rw-  915 Jul 20 23:03 main.py
-    -rw-rw-rw-  482 Jul 20 23:54 master.html
-    -rw-rw-rw- 1928 Jul 20 23:40 home.html
+    .../site/content/samples/site_from_scratch:
+    -rw-rw-rw- 115 Jul 21 08:13 app.yaml
+    -rw-rw-rw-  86 Jul 21 08:18 home.html
+    -rw-rw-rw- 321 Jul 21 08:30 main.py
+    -rw-rw-rw- 814 Jul 21 08:17 master.html
 
 and the application is ready to run.
+Type the following commands:
+
+    cd site/content/samples
+    dev_appserver.py site_from_scratch
+
+and visit `http://localhost:8080/`.
+Looks not so good, doesn't it? 
+So, it's a good moment to style our page.
 
 ### Adding Styles
 
