@@ -29,6 +29,8 @@ so the reader will be able to trace all history simply switching between the bra
 
 By the way, if you are willing to explore site's code itself, it can be found [here][site].
 
+Having preparations done let's begin with the first page.
+
 ### Starting from URL
 
 As according the old russian proverb a theater starts from the wardrobe, as a site starts from its URL.
@@ -121,7 +123,7 @@ Now let's allow Django render the page putting the following code into `main.py`
     import os
     from google.appengine.ext.webapp import template
     
-    home_file = os.path.join(os.path.dirname(__file__), 'home.html')
+    home_file = os.path.join(os.path.dirname(__file__), 'markup/home.html')
     
     print 'Content-Type: text/html'           # let the browser know that it's getting html
     print ''
@@ -149,12 +151,44 @@ So, it's a good moment to style our page.
 
 ### Adding Styles
 
-...
+Styling HTML page might be a tricky business.
+There are several popular browsers around and every of them has its own opinion how to treat certain details of CSS.
+It's definitely not a big issue for the page with one paragraph of text
+but I would like to avoid problems in the future mainly
+because tinkering with styles is not so interesting as, for example, programming or writing.
+
+The best way to save time and simplify life is usage of existing CSS framework.
+So, let's ask guys from, for instance, Yahoo for help adding the following line into head of our page:
+
+    <link rel="stylesheet" type="text/css"
+          href="http://yui.yahooapis.com/combo?
+          2.8.1/build/reset-fonts-grids/reset-fonts-grids.css&2.8.1/build/base/base-min.css">
+
+It tells the browser load the file directly from Yahoo's content distribution network (CDN).
+Checkout branch with [example #2][example2] and see how the page looks styled by YUI 2 CSS framework.
+
+YUI CSS [Reset][yui-reset] helps to minimize browser's particularities making further work easier,
+[Base][yui-base] and [Font][yui-fonts] modules make standard HTML elemnents such as headers and paragraphs look nice
+and [Grids][yui-grids] CSS provides simple fixed size grid layout for the page.
+
+Now the page looks better but I would like to change element's colors, margins and other minor details
+adding link to own CSS table:
+
+    <link rel="stylesheet" href="/styles/master.css" />
+
+To make App Engine serve `master.css` file add static dir rout into `app.yaml`:
+
+    - url: /styles
+      static_dir: styles
+
+Switch to [example3][example3] branch and run app to see fully styled "Hello World!" page.
+
+At this point, the first small step is done.
 
 ### The next step
 
 Any site is completely useless without content and it's reasonable to fill this gap as soon as possible.
-So in the next article I'm going to find out the most convenient way to put my writing on the site.
+So in the next article I'm going to find out the most convenient way to put my writing on recently created page.
 
 ### Links
 
@@ -173,7 +207,9 @@ So in the next article I'm going to find out the most convenient way to put my w
 
 [site]: http://github.com/yushchenko/site "Full source code of this site"
 [siteSample]: http://github.com/yushchenko/siteSample "Sample's repository on GitHub"
-[example1]: http://github.com/yushchenko/siteSample/tree/example1 "Sample's source code: example 1"
+[example1]: http://github.com/yushchenko/siteSample/tree/example1 "Sample's source code: example 1 - page + master page"
+[example2]: http://github.com/yushchenko/siteSample/tree/example2 "Sample's source code: example 2 - adding YUI 2 CSS Framework"
+[example3]: http://github.com/yushchenko/siteSample/tree/example3 "Sample's source code: example 3 - custom styles"
 
 [s0]: /blog/site-from-scratch-0-introduction "Site from Scratch 0: Intorduction"
 [s2]: /blog/site-from-scratch-2-content "Site from Scratch 2: Content"

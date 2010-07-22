@@ -14,6 +14,7 @@ and I would recommend to clone it on hard drive:</p>
 <p>For every interesting point a separate branch will be created,
 so the reader will be able to trace all history simply switching between the branches.</p>
 <p>By the way, if you are willing to explore site's code itself, it can be found <a href="http://github.com/yushchenko/site" title="Full source code of this site">here</a>.</p>
+<p>Having preparations done let's begin with the first page.</p>
 <h3>Starting from URL</h3>
 <p>As according the old russian proverb a theater starts from the wardrobe, as a site starts from its URL.</p>
 <p>First of all, the address should be as short as it possible, so own domain name is required.
@@ -92,7 +93,7 @@ Hello World!                             {% templatetag opencomment %} text to d
 <pre><code>import os
 from google.appengine.ext.webapp import template
 
-home_file = os.path.join(os.path.dirname(__file__), 'home.html')
+home_file = os.path.join(os.path.dirname(__file__), 'markup/home.html')
 
 print 'Content-Type: text/html'           # let the browser know that it's getting html
 print ''
@@ -106,17 +107,41 @@ print template.render(home_file, {})      # return response content - the text i
 -rw-rw-rw- 814 Jul 21 08:17 master.html
 </code></pre>
 <p>and the application is ready to run.</p>
-<p>If you have cloned <a href="http://github.com/yushchenko/siteSample" title="Sample&apos;s repository on GitHub">sample's repo</a>, simply switch to branch <a href="http://github.com/yushchenko/siteSample/tree/example1" title="Sample&apos;s source code: example 1">example1</a> and type the following command:</p>
+<p>If you have cloned <a href="http://github.com/yushchenko/siteSample" title="Sample&apos;s repository on GitHub">sample's repo</a>, simply switch to branch <a href="http://github.com/yushchenko/siteSample/tree/example1" title="Sample&apos;s source code: example 1 - page + master page">example1</a> and type the following command:</p>
 <pre><code>dev_appserver.py siteSample
 </code></pre>
 <p>To look at the result of our efforts visit <code>http://localhost:8080/</code>.</p>
 <p>Looks not so good, doesn't it? 
 So, it's a good moment to style our page.</p>
 <h3>Adding Styles</h3>
-<p>...</p>
+<p>Styling HTML page might be a tricky business.
+There are several popular browsers around and every of them has its own opinion how to treat certain details of CSS.
+It's definitely not a big issue for the page with one paragraph of text
+but I would like to avoid problems in the future mainly
+because tinkering with styles is not so interesting as, for example, programming or writing.</p>
+<p>The best way to save time and simplify life is usage of existing CSS framework.
+So, let's ask guys from, for instance, Yahoo for help adding the following line into head of our page:</p>
+<pre><code>&lt;link rel="stylesheet" type="text/css"
+      href="http://yui.yahooapis.com/combo?
+      2.8.1/build/reset-fonts-grids/reset-fonts-grids.css&amp;2.8.1/build/base/base-min.css"&gt;
+</code></pre>
+<p>It tells the browser load the file directly from Yahoo's content distribution network (CDN).
+Checkout branch with <a href="http://github.com/yushchenko/siteSample/tree/example2" title="Sample&apos;s source code: example 2 - adding YUI 2 CSS Framework">example #2</a> and see how the page looks styled by YUI 2 CSS framework.</p>
+<p>YUI CSS <a href="http://developer.yahoo.com/yui/reset/" title="YUI 2 Reset">Reset</a> helps to minimize browser's particularities making further work easier,
+<a href="http://developer.yahoo.com/yui/base/" title="YUI 2 Base">Base</a> and <a href="http://developer.yahoo.com/yui/fonts/" title="YUI 2 Fonts">Font</a> modules make standard HTML elemnents such as headers and paragraphs look nice
+and <a href="http://developer.yahoo.com/yui/grids/" title="YUI 2 Grids">Grids</a> CSS provides simple fixed size grid layout for the page.</p>
+<p>Now the page looks better but I would like to change element's colors, margins and other minor details
+adding link to own CSS table:</p>
+<pre><code>&lt;link rel="stylesheet" href="/styles/master.css" /&gt;
+</code></pre>
+<p>To make App Engine serve <code>master.css</code> file add static dir rout into <code>app.yaml</code>:</p>
+<pre><code>- url: /styles
+  static_dir: styles
+</code></pre>
+<p>Switch to <a href="http://github.com/yushchenko/siteSample/tree/example3" title="Sample&apos;s source code: example 3 - custom styles">example3</a> branch and run app to see fully styled "Hello World!" page.</p>
 <h3>The next step</h3>
 <p>Any site is completely useless without content and it's reasonable to fill this gap as soon as possible.
-So in the next article I'm going to find out the most convenient way to put my writing on the site.</p>
+So in the next article I'm going to find out the most convenient way to put my writing on recently created page.</p>
 <h3>Links</h3>
 <ol>
 <li>The first article of this cycle - <a href="/blog/site-from-scratch-0-introduction" title="Site from Scratch 0: Intorduction">Site from Scratch 0: Introduction</a>.</li>
