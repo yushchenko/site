@@ -92,7 +92,7 @@ And it supports Python as the first class citizen so no way to escape, I'm catch
 
 ### What next?
 
-The answer is easy, as long way starts form the first step as a site begins from the first page.
+The answer is easy, as long way starts form the first step as a site begins from [the first page][next-article].
 
 
 

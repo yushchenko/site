@@ -1,14 +1,14 @@
 id:     site-from-scratch-1-the-first-page
 title:  Site from Scratch 1: The First Page
-date:   July 31, 2010
+date:   July 23, 2010
 tags:   site,development
-status: draft
+status: published
 
 
 ### Introduction
 
 In building site, as in any other business, it's hard to begin from the blank.
-To simplify the process I'm going to start creating only one page with only one paragraph of text.
+To simplify the process I'm going to start creating only one page with only one paragraph of the text.
 Nothing can be simplier, isn't it? So the step is going to be short and easy.
 
 On the other hand, it's important to start in the right direction
@@ -33,16 +33,16 @@ Having preparations done let's move to building the site itself.
 
 ### Starting from URL
 
-As according the old Russian proverb a theater starts from the wardrobe, as a site starts from the URL.
+As according the old Russian proverb - a theater starts from the wardrobe, as a site starts from the URL.
 
-First of all, the address should be as short as it possible, so own domain is required.
+First of all, the address should be as short as it possible, so the name domain is required.
 Having spent a couple of hours for investigations, I decided to use [name.com][name.com] registrar.
 I liked their relatively simple and fast site and also 'bike-to-work incentive program'
 described in [the wikipedia article][name-com-wiki].
 Our decisions are sometimes driven by strange motives...
 
 Next, the resource part of the URL should be short and verbose.
-For example, link to this article should look something like this:
+For example, the link to this article should look something like this:
 
     www.yushchenko.name/blog/site-from-scratch-1-the-first-page
 
@@ -57,7 +57,7 @@ The simplest routing contains just three lines of code:
     - url: /.*                # take any request to the site
       script: main.py         # and run code from main.py to generate response
 
-Besides this at the beginning of the `app.yaml` should be description of the app:
+Besides this at the beginning of the `app.yaml` should be the description of the app:
 
     application: site
     version: 1
@@ -67,7 +67,7 @@ and its run-time:
     runtime: python
     api_version: 1
 
-Now basic configuration is done
+Now the basic configuration is done
 and the site's ready to respond on incoming requests executing code in `main.py`
 so it's a nice time to proceed with the next step.
 
@@ -77,7 +77,7 @@ App Engine Webapp framework includes Django templates engine.
 It's a powerful mean of generation text in any format including HTML and CSS.
 As you remember, the initial step should be in the right direction, so
 the first Django's feature I'm going to use is [template inheritance][django-template-inheritance].
-In nutshell, it allows create many pages with the same structure but different content.
+In nutshell, it allows to create many pages with the same structure but different content.
 
 Let's split page markup in two parts -
 `master.html` that contains doctype and all tags required for well formed html document
@@ -151,7 +151,7 @@ and execute the following command from `../siteSample` directory:
 
 To look at the result of our efforts visit `http://localhost:8080/`.
 
-Looks not so good, doesn't it? 
+Looks not so good, does it? 
 So, it's a good moment to style our page.
 
 ### Adding Styles
@@ -169,9 +169,9 @@ So, let's ask guys from Yahoo UI team to help me a bit adding the following link
           href="http://yui.yahooapis.com/combo?
           2.8.1/build/reset-fonts-grids/reset-fonts-grids.css&2.8.1/build/base/base-min.css">
 
-It tells the browser load the file directly from Yahoo's content distribution network (CDN).
+It tells the browser to load the file directly from Yahoo's content distribution network (CDN).
 
-There are four components are combined in the referenced style sheet.
+There are four components that are combined in the referenced style sheet.
 YUI CSS [Reset][yui-reset] helps to minimize browser's particularities making further work easier,
 [Base][yui-base] and [Font][yui-fonts] modules make standard HTML elements such as headers
 and paragraphs look much more professional
@@ -180,7 +180,7 @@ and [Grids][yui-grids] CSS provides simple fixed size grid layout for the page.
 Checkout branch [example2][example2] and see how the page looks styled by YUI 2 CSS.
 
 Now the page looks better but I would like to change element's colors, margins and other minor details
-adding link to own CSS table:
+adding the link to my CSS table:
 
     <link rel="stylesheet" href="/styles/master.css" />
 
