@@ -13,11 +13,22 @@ handlers:
   static_files: robots.txt
   upload: robots.txt
 
+
 - url: /images
   static_dir: images
 
+- url: /styles/sandbox
+  static_dir: styles/sandbox
+
 - url: /styles
   static_dir: styles
+
+- url: /scripts/sandbox
+  static_dir: scripts/sandbox
+
+- url: /scripts/libs
+  static_dir: scripts/libs
+
 
 - url: /.*
   script: main.py

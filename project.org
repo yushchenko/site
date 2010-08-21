@@ -3,6 +3,7 @@
   - move python code into source folder
   - remove useless links (Home -> Home, Article -> Article)
   - add separate error page with article list
+  - fix print
   - 
 
 

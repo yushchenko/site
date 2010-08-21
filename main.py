@@ -54,11 +54,16 @@ class AboutPage(webapp.RequestHandler):
         values = {}
         self.response.out.write(template.render(path('markup/pages/about.html'), values))
 
+class CssLayout(webapp.RequestHandler):
+    def get(self):
+        values = {}
+        self.response.out.write(template.render(path('markup/sandbox/css_layout.html'), values))
 
 application = webapp.WSGIApplication([
     ('/',             HomePage),
     ('/about/',       AboutPage),
-    (r'/blog/(.*)',   ArticlePage)
+    (r'/blog/(.*)',   ArticlePage),
+    ('/sandbox/css-layout', CssLayout)
 ], debug=True);        
 
 

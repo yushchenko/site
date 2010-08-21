@@ -1,0 +1,15 @@
+/* 
+ * blue #7587A6 (links)
+ * gray #5F5A60 (titles)
+ * light gray #D1D1D1 (borders)
+ *
+ */
+
+#properties-placeholder {
+    display: none;
+}
+
+#root {
+    border: solid 1px #D1D1D1;
+    height: 500px;
+}
