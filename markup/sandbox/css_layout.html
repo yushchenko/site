@@ -14,27 +14,40 @@
 <h3>CSS Layout Game</h3>
 
 <div id='properties'>
-  <label for='position'>position</label>
-  <select id='position' class='property-editor'>
-    <option>static</option>
-    <option>relative</option>
-    <option>absolute</option>
-    <option>fixed</option>
-  </select>
 
-  <label for='float'>float</label>
-  <select id='float' class='property-editor'>
-    <option>none</option>
-    <option>left</option>
-    <option>right</option>
-  </select>
+  <div>
+    &lt;div&nbsp;
+    <label for='position'>position=</label>
+    <select id='position' class='property-editor'>
+      <option>static</option>
+      <option>relative</option>
+      <option>absolute</option>
+      <option>fixed</option>
+    </select>
+
+    <label for='float'>float=</label>
+    <select id='float' class='property-editor'>
+      <option>none</option>
+      <option>left</option>
+      <option>right</option>
+    </select>
+    &gt;
+
+    <input type='text' id='text' class='text-editor'></input>
+    
+    &lt;/div&gt;
+  <div>
+
+  <div>
+    <a id='addChild' href='#'>add child</a>
+    <a id='remove' href='#'>remove</a>
+  </div>
 
 </div>
 
 <div id='properties-placeholder'>Select a block or container itself...</div>
 
-<div id='root' class='test'>
-  Positioned elements will be here...
+<div id='root' class='selectable selected'>
 </div>
 
 {% endblock %}

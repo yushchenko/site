@@ -5,11 +5,24 @@
  *
  */
 
+#properties {
+    margin-bottom: 10px;
+}
+
 #properties-placeholder {
     display: none;
 }
 
 #root {
-    border: solid 1px #D1D1D1;
     height: 500px;
+}
+
+.selectable {
+    border: solid 1px #D1D1D1;
+    min-height: 10px;
+    padding: 3px;
+}
+
+.selected {
+    border: solid 1px #7587A6;
 }
