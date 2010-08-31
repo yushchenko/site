@@ -26,3 +26,49 @@
 .selected {
     border: solid 1px #7587A6;
 }
+
+
+
+#properties {
+    font-size: 0.9em;
+}
+
+#properties em {
+    font-weight: bold;
+}
+
+.property-container {
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.property-editor, option {
+    border: solid 1px #D1D1D1;
+}
+
+input.property-editor {
+    width: 40px;
+}
+
+#text {
+    width: 150px;
+}
+
+#controls {
+    text-align: right;
+    padding-bottom: 5px;
+}
+
+#controls a {
+    display: inline-block;
+    width: 50px;
+    margin-left: 5px;
+    border: 1px solid #D1D1D1;
+    text-align: center;
+    padding: 2px;
+}
+
+#controls a:hover {
+    text-decoration: none;
+    border: 1px solid #7587A6;    
+}

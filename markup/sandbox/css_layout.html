@@ -1,6 +1,6 @@
 {% extends "../master.html" %}
 
-{% block title %}CSS Layout Game{% endblock %}
+{% block title %}CSS Layout{% endblock %}
 
 {% block styles %}<link rel="stylesheet" href="/styles/sandbox/css_layout.css" />{% endblock %}
 
@@ -11,35 +11,90 @@
 
 {% block content %}
 
-<h3>CSS Layout Game</h3>
+<h3>CSS Layout</h3>
 
 <div id='properties'>
 
   <div>
-    &lt;div&nbsp;
-    <label for='position'>position=</label>
-    <select id='position' class='property-editor'>
-      <option>static</option>
-      <option>relative</option>
-      <option>absolute</option>
-      <option>fixed</option>
-    </select>
+    <em>&lt;div&nbsp;</em>
 
-    <label for='float'>float=</label>
-    <select id='float' class='property-editor'>
-      <option>none</option>
-      <option>left</option>
-      <option>right</option>
-    </select>
-    &gt;
+    <span class='property-container'>
+      <label for='display'>display =</label>
+      <select id='display' class='property-editor'>
+        <option>block</option>
+        <option>inline</option>
+        <option>inline-block</option>
+      </select>
+    </span>
 
-    <input type='text' id='text' class='text-editor'></input>
+    <span class='property-container'>
+      <label for='with'>width/height =</label>
+      <input type='text' id='width' class='property-editor'></input> /
+      <input type='text' id='height' class='property-editor'></input>    
+    </span>
+
+    <span class='property-container'>
+      <label for='float'>float =</label>
+      <select id='float' class='property-editor'>
+        <option>none</option>
+        <option>left</option>
+        <option>right</option>
+      </select>
+    </span>
+
+    <span class='property-container'>
+      <label for='clear'>clear =</label>
+      <select id='clear' class='property-editor'>
+        <option>none</option>
+        <option>both</option>
+        <option>left</option>
+        <option>right</option>
+      </select>
+    </span>
+
+    <span class='property-container'>
+      <label for='position'>position =</label>
+      <select id='position' class='property-editor'>
+        <option>static</option>
+        <option>relative</option>
+        <option>absolute</option>
+        <option>fixed</option>
+      </select>
+    </span>
+
+    <span class='property-container'>
+      <label for='with'>top/right/bottom/left =</label>
+      <input type='text' id='top' class='property-editor'></input> /
+      <input type='text' id='right' class='property-editor'></input> /
+      <input type='text' id='bottom' class='property-editor'></input> /
+      <input type='text' id='left' class='property-editor'></input>    
+    </span>
+
+    <span class='property-container'>
+      <label for='with'>padding-top/right/bottom/left =</label>
+      <input type='text' id='padding-top' class='property-editor'></input> /
+      <input type='text' id='padding-right' class='property-editor'></input> /
+      <input type='text' id='padding-bottom' class='property-editor'></input> /
+      <input type='text' id='padding-left' class='property-editor'></input>    
+    </span>
+
+    <span class='property-container'>
+      <label for='with'>margin-top/right/bottom/left =</label>
+      <input type='text' id='margin-top' class='property-editor'></input> /
+      <input type='text' id='margin-right' class='property-editor'></input> /
+      <input type='text' id='margin-bottom' class='property-editor'></input> /
+      <input type='text' id='margin-left' class='property-editor'></input>    
+    </span>
+
+    <em>&gt;</em>
+
+    <input type='text' id='text' class='property-editor'></input>
     
-    &lt;/div&gt;
+    <em>&lt;/div&gt;</em>
   <div>
 
-  <div>
-    <a id='addChild' href='#'>add child</a>
+  <div id='controls'>
+    <a id='addChild' href='#'>add</a>
     <a id='remove' href='#'>remove</a>
   </div>
 

@@ -1,4 +1,4 @@
-$(function() {
+$(function() { 
     
     function selectElement(jq) {
         $('.selectable').removeClass('selected');
@@ -11,7 +11,6 @@ $(function() {
             jq = $(markup);
 
         jq.appendTo(jqContainer);
-        selectElement(jq);
     }
 
     function removeElement(jq) {
@@ -24,7 +23,7 @@ $(function() {
         jq.remove();
     }
 
-    // Events
+    // events
 
     $('.selectable').live('click', function() {
         selectElement($(this));
