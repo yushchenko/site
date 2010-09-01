@@ -27,8 +27,6 @@
     border: solid 1px #7587A6;
 }
 
-
-
 #properties {
     font-size: 0.9em;
 }
@@ -50,12 +48,13 @@ input.property-editor {
     width: 40px;
 }
 
-#text {
-    width: 150px;
+input.property-editor.wide {
+    width: 120px;
 }
 
 #controls {
     text-align: right;
+    margin-top: 10px;
     padding-bottom: 5px;
 }
 
@@ -70,5 +69,6 @@ input.property-editor {
 
 #controls a:hover {
     text-decoration: none;
-    border: 1px solid #7587A6;    
+    border: 1px solid #7587A6;
+    cursor: pointer;
 }

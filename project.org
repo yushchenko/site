@@ -4,7 +4,10 @@
   - remove useless links (Home -> Home, Article -> Article)
   - add separate error page with article list
   - fix print
-  - 
+  - css layout: copy/paste
+  - css layout: hint, saving state in cookie
+  - css layout: id + breadcrumb
+  - css layout: article
 
 
 * Writings

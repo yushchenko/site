@@ -62,44 +62,55 @@
     </span>
 
     <span class='property-container'>
-      <label for='with'>[width height] =</label>
-      <input type='text' id='width' class='property-editor' />
-      <input type='text' id='height' class='property-editor' />    
+      <label for='width'>width=</label><input type='text' id='width' class='property-editor'/>
+      <label for='height'>height=</label><input type='text' id='height' class='property-editor'/>    
     </span>
 
     <span class='property-container'>
-      <label for='with'>[top right bottom left] =</label>
-      <input type='text' id='top' class='property-editor child-only'/>
-      <input type='text' id='right' class='property-editor child-only'/>
-      <input type='text' id='bottom' class='property-editor child-only'/>
-      <input type='text' id='left' class='property-editor child-only'/>    
+      <label for='background'>background=</label><input type='text' id='background' class='property-editor wide'/>
     </span>
 
+    <br/>
     <span class='property-container'>
-      <label for='with'>padding-[top right bottom left] =</label>
-      <input type='text' id='padding-top' class='property-editor'/>
-      <input type='text' id='padding-right' class='property-editor'/>
-      <input type='text' id='padding-bottom' class='property-editor'/>
-      <input type='text' id='padding-left' class='property-editor'/>    
+      <label for='top'>top=</label><input type='text' id='top' class='property-editor child-only'/>
+      <label for='right'>right=</label><input type='text' id='right' class='property-editor child-only'/>
+      <label for='bottom'>bottom=</label><input type='text' id='bottom' class='property-editor child-only'/>
+      <label for='left'>left=</label><input type='text' id='left' class='property-editor child-only'/>    
     </span>
+
+    <br/>
+    <span class='property-container'>
+      <label for='border-top' title='border-top'>br-top=</label><input type='text' id='border-top' class='property-editor wide child-only'/>
+      <label for='border-right' title='border-rigth'>br-right=</label><input type='text' id='border-right' class='property-editor wide child-only'/>
+      <label for='border-bottom' title='border-bottom'>br-bottom=</label><input type='text' id='border-bottom' class='property-editor wide child-only'/>
+      <label for='border-left' title='border-left'>br-left=</label><input type='text' id='border-left' class='property-editor wide child-only'/>    
+    </span>
+
+    <br/>
+    <span class='property-container'>
+      <label for='padding-top'>padding-top=</label><input type='text' id='padding-top' class='property-editor'/>
+      <label for='padding-right'>padding-right=</label><input type='text' id='padding-right' class='property-editor'/>
+      <label for='padding-bottom'>padding-bottom=</label><input type='text' id='padding-bottom' class='property-editor'/>
+      <label for='padding-left'>padding-left=</label><input type='text' id='padding-left' class='property-editor'/>    
+    </span>
+
     <br />
     <span class='property-container'>
-      <label for='with'>margin-[top right bottom left]=</label>
-      <input type='text' id='margin-top' class='property-editor child-only'/>
-      <input type='text' id='margin-right' class='property-editor child-only'/>
-      <input type='text' id='margin-bottom' class='property-editor child-only'/>
-      <input type='text' id='margin-left' class='property-editor child-only'/>    
+      <label for='margin-top'>margin-top=</label><input type='text' id='margin-top' class='property-editor child-only'/>
+      <label for='margin-right'>margin-right=</label><input type='text' id='margin-right' class='property-editor child-only'/>
+      <label for='margin-bottom'>margin-bottom=</label><input type='text' id='margin-bottom' class='property-editor child-only'/>
+      <label for='margin-left'>margin-left=</label><input type='text' id='margin-left' class='property-editor child-only'/>    
     </span>
 
     <em>&gt;</em>
 
-    <input type='text' id='text' class='property-editor'/>
+    <input type='text' id='text' class='property-editor wide'/>
     
     <em>&lt;/div&gt;</em>
   <div>
 
   <div id='controls'>
-    <a id='addChild' href='#'>add</a>
+    <a id='addChild'>add</a>
     <a id='remove' href='#'>remove</a>
   </div>
 
