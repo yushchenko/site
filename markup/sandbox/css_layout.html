@@ -1,6 +1,6 @@
 {% extends "../master.html" %}
 
-{% block title %}CSS Layout{% endblock %}
+{% block title %}CSS Layout Game{% endblock %}
 
 {% block styles %}<link rel="stylesheet" href="/styles/sandbox/css_layout.css" />{% endblock %}
 
@@ -11,15 +11,26 @@
 
 {% block content %}
 
-<h3>CSS Layout</h3>
+<h3 id='header'>CSS Layout Game
+  <a id='showHint' title='show hint'>?<a/></h3>
 
-<div id='properties'>
+<div id='hint' class='hidden'>
+  <a id='hideHint' title='hide this hint'>hide</a>
+  Add new elements into the container or other selected element using "Add" button.
+  Select an element with mouse click and play with its CSS properties observing layout changes.
+  If you don't need selected element any more, remove it using "Remove" button.<br/>
+  <strong>Warning:</strong> there is no user input validation so be a bit careful to avoid page blowouts.<br/>
+  Enjoy :)
+</div>
 
-  <div>
-    <em>&lt;div&nbsp;</em>
+<div id='properties' class='hidden'>
+
+  <div id='tag'>
+    <strong>&lt;div&nbsp;</strong>
 
     <span class='property-container'>
-      <label for='display'>display=</label><select id='display' class='property-editor child-only'>
+      style&nbsp;=&nbsp;&quot;<label for='display'>display:</label>
+      <select id='display' class='property-editor child-only'>
         <option>block</option>
         <option>inline</option>
         <option>inline-block</option>
@@ -27,7 +38,8 @@
     </span>
 
     <span class='property-container'>
-      <label for='float'>float=</label><select id='float' class='property-editor child-only'>
+      <label for='float'>float:</label>
+      <select id='float' class='property-editor child-only'>
         <option>none</option>
         <option>left</option>
         <option>right</option>
@@ -35,7 +47,8 @@
     </span>
 
     <span class='property-container'>
-      <label for='clear'>clear=</label><select id='clear' class='property-editor child-only'>
+      <label for='clear'>clear:</label>
+      <select id='clear' class='property-editor child-only'>
         <option>none</option>
         <option>both</option>
         <option>left</option>
@@ -44,7 +57,8 @@
     </span>
 
     <span class='property-container'>
-      <label for='position'>position=</label><select id='position' class='property-editor child-only'>
+      <label for='position'>position:</label>
+      <select id='position' class='property-editor child-only'>
         <option>static</option>
         <option>relative</option>
         <option>absolute</option>
@@ -53,7 +67,8 @@
     </span>
 
     <span class='property-container'>
-      <label for='overflow'>overflow=</label><select id='overflow' class='property-editor child-only'>
+      <label for='overflow'>overflow:</label>
+      <select id='overflow' class='property-editor child-only'>
         <option>visible</option>
         <option>hidden</option>
         <option>scroll</option>
@@ -62,52 +77,49 @@
     </span>
 
     <span class='property-container'>
-      <label for='width'>width=</label><input type='text' id='width' class='property-editor'/>
-      <label for='height'>height=</label><input type='text' id='height' class='property-editor'/>    
+      <label for='width'>width:</label> <input type='text' id='width' class='property-editor'/>
+      <label for='height'>height:</label> <input type='text' id='height' class='property-editor'/>
     </span>
 
     <span class='property-container'>
-      <label for='background'>background=</label><input type='text' id='background' class='property-editor wide'/>
+      <label for='top'>top:</label> <input type='text' id='top' class='property-editor child-only'/>
+      <label for='right'>right:</label> <input type='text' id='right' class='property-editor child-only'/>
+      <label for='bottom'>bottom:</label> <input type='text' id='bottom' class='property-editor child-only'/>
+      <label for='left'>left:</label> <input type='text' id='left' class='property-editor child-only'/>
     </span>
 
-    <br/>
     <span class='property-container'>
-      <label for='top'>top=</label><input type='text' id='top' class='property-editor child-only'/>
-      <label for='right'>right=</label><input type='text' id='right' class='property-editor child-only'/>
-      <label for='bottom'>bottom=</label><input type='text' id='bottom' class='property-editor child-only'/>
-      <label for='left'>left=</label><input type='text' id='left' class='property-editor child-only'/>    
-    </span>
-
-    <br/>
-    <span class='property-container'>
-      <label for='border-top' title='border-top'>br-top=</label><input type='text' id='border-top' class='property-editor wide child-only'/>
-      <label for='border-right' title='border-rigth'>br-right=</label><input type='text' id='border-right' class='property-editor wide child-only'/>
-      <label for='border-bottom' title='border-bottom'>br-bottom=</label><input type='text' id='border-bottom' class='property-editor wide child-only'/>
-      <label for='border-left' title='border-left'>br-left=</label><input type='text' id='border-left' class='property-editor wide child-only'/>    
+      <label for='background'>background:</label> <input type='text' id='background' class='property-editor wide'/>
     </span>
 
     <br/>
     <span class='property-container'>
-      <label for='padding-top'>padding-top=</label><input type='text' id='padding-top' class='property-editor'/>
-      <label for='padding-right'>padding-right=</label><input type='text' id='padding-right' class='property-editor'/>
-      <label for='padding-bottom'>padding-bottom=</label><input type='text' id='padding-bottom' class='property-editor'/>
-      <label for='padding-left'>padding-left=</label><input type='text' id='padding-left' class='property-editor'/>    
+      <label for='border-top' title='border-top'>border-top:</label> <input type='text' id='border-top' class='property-editor wide child-only'/>
+      <label for='border-right' title='border-rigth'>border-right:</label> <input type='text' id='border-right' class='property-editor wide child-only'/>
+      <label for='border-bottom' title='border-bottom'>border-bottom:</label> <input type='text' id='border-bottom' class='property-editor wide child-only'/>
+      <label for='border-left' title='border-left'>border-left:</label> <input type='text' id='border-left' class='property-editor wide child-only'/>
+    </span>
+
+    <br/>
+    <span class='property-container'>
+      <label for='padding-top'>padding-top:</label> <input type='text' id='padding-top' class='property-editor'/>
+      <label for='padding-right'>padding-right:</label> <input type='text' id='padding-right' class='property-editor'/>
+      <label for='padding-bottom'>padding-bottom: </label> <input type='text' id='padding-bottom' class='property-editor'/>
+      <label for='padding-left'>padding-left:</label> <input type='text' id='padding-left' class='property-editor'/>    
     </span>
 
     <br />
     <span class='property-container'>
-      <label for='margin-top'>margin-top=</label><input type='text' id='margin-top' class='property-editor child-only'/>
-      <label for='margin-right'>margin-right=</label><input type='text' id='margin-right' class='property-editor child-only'/>
-      <label for='margin-bottom'>margin-bottom=</label><input type='text' id='margin-bottom' class='property-editor child-only'/>
-      <label for='margin-left'>margin-left=</label><input type='text' id='margin-left' class='property-editor child-only'/>    
-    </span>
-
-    <em>&gt;</em>
+      <label for='margin-top'>margin-top:</label> <input type='text' id='margin-top' class='property-editor child-only'/>
+      <label for='margin-right'>margin-right:</label> <input type='text' id='margin-right' class='property-editor child-only'/>
+      <label for='margin-bottom'>margin-bottom:</label> <input type='text' id='margin-bottom' class='property-editor child-only'/>
+      <label for='margin-left'>margin-left:</label> <input type='text' id='margin-left' class='property-editor child-only'/>
+    </span><strong>&quot;&gt;</strong>
 
     <input type='text' id='text' class='property-editor wide'/>
     
-    <em>&lt;/div&gt;</em>
-  <div>
+    <strong>&lt;/div&gt;</strong>
+  </div>
 
   <div id='controls'>
     <a id='addChild'>add</a>

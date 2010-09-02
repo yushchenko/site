@@ -5,12 +5,28 @@
  *
  */
 
-#properties {
-    margin-bottom: 10px;
+.hidden {
+    display: none;
 }
 
-#properties-placeholder {
-    display: none;
+#header {
+    margin-bottom: 15px;
+}
+
+#hint {
+    margin-bottom: 5px;
+}
+
+#showHint, #hideHint {
+    float: right;
+    cursor: pointer;
+}
+
+#hint {
+    border: solid 1px #D1D1D1;
+    background: #FFFFCC;
+    font-size: 0.85em;
+    padding: 5px;
 }
 
 #root {
@@ -37,7 +53,7 @@
 
 .property-container {
     display: inline-block;
-    padding-bottom: 3px;
+    padding-bottom: 5px;
 }
 
 .property-editor, option {
@@ -49,13 +65,13 @@ input.property-editor {
 }
 
 input.property-editor.wide {
-    width: 120px;
+    width: 100px;
 }
 
 #controls {
     text-align: right;
-    margin-top: 10px;
-    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #controls a {

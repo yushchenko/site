@@ -58,10 +58,6 @@ $(function() {
         (editor.id === 'text') ? target.text(val) : target.css(editor.id, val);
     }
 
-    // initialization
-
-    selectElement($('#root'));
-
     // events
 
     $('.selectable').live('click', function() {
@@ -80,5 +76,27 @@ $(function() {
     $('.property-editor').change(function() {
         setElementProperty(this);
     });
+
+    var hintIsHiddenCookie = 'hintIsHidden=1',
+        hintIsNotHiddenCookie = 'hintIsHidden=0';
+
+    $('#showHint,#hideHint').click(function() {
+
+        var isHidden = this.id === 'hideHint';
+
+        $('#hint').toggleClass('hidden', isHidden);
+
+        document.cookie =  isHidden ? hintIsHiddenCookie : hintIsNotHiddenCookie;
+    });
+
+    // initialization
+
+    selectElement($('#root'));
+
+    $('#properties').removeClass('hidden');
+    
+    if (document.cookie.indexOf(hintIsNotHiddenCookie) !== -1) {
+        $('#hint').removeClass('hidden');
+    }
 
 });
