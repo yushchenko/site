@@ -14,20 +14,19 @@ handlers:
   upload: robots.txt
 
 
-- url: /images
-  static_dir: images
 
-- url: /styles/sandbox
-  static_dir: styles/sandbox
+- url: /images/(.*)
+  static_files: images/\1
+  upload: images/(.*)
 
-- url: /styles
-  static_dir: styles
+- url: /styles/(.*)
+  static_files: styles/\1
+  upload: styles/(.*)
 
-- url: /scripts/sandbox
-  static_dir: scripts/sandbox
+- url: /scripts/(.*)
+  static_files: scripts/\1
+  upload: scripts/(.*)
 
-- url: /scripts/libs
-  static_dir: scripts/libs
 
 
 - url: /.*
