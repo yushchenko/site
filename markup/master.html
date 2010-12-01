@@ -18,8 +18,17 @@
       <div id="hd">
         <h1>Valery Yushchenko</h1>
         <div id="menu">
-          <a href="/">Home</a>
-          <a href="/about/">About</a>
+          {% ifequal page_name "home" %}
+              <span>Home</span>
+          {% else %}
+              <a href="/">Home</a>
+          {% endifequal %}
+
+          {% ifequal page_name "about" %}
+              <span>About</span>
+          {% else %}
+              <a href="/about/">About</a>
+          {% endifequal %}
         </div>
       </div>
 

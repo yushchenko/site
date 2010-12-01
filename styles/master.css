@@ -36,8 +36,13 @@ h1,h2,h3,h4,h5,h6 {
 #menu {
     margin-bottom: 5px;
 }
-#menu a {
-    margin-right: 5px;
+#menu a, #menu span {
+    padding: 2px;
+    margin: 0;
+}
+
+#menu span {
+    font-weight: bold;
 }
 
 #bd {

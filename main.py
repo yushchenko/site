@@ -26,7 +26,7 @@ class HomePage(webapp.RequestHandler):
                 a['content'] = template.render('markup/article.html', { 'article': a })
                 publishedArticles.append(a);
 
-        values = { 'articles': publishedArticles }
+        values = { 'articles': publishedArticles, 'page_name': 'home' }
         
         self.response.out.write(template.render(path('markup/pages/home.html'), values))
 
@@ -46,17 +46,17 @@ class ArticlePage(webapp.RequestHandler):
     def get(self, id):
         article =  self.get_article_by_id(id)
         self.response.out.write(template.render( path('markup/pages/article.html'),
-                                                 {'article': article} ))
+                                                 {'article': article, 'page_name': 'article'} ))
 
 
 class AboutPage(webapp.RequestHandler):
     def get(self):
-        values = {}
+        values = {'page_name': 'about'}
         self.response.out.write(template.render(path('markup/pages/about.html'), values))
 
 class CssLayout(webapp.RequestHandler):
     def get(self):
-        values = {}
+        values = {'page_name': 'css_layout'}
         self.response.out.write(template.render(path('markup/sandbox/css_layout.html'), values))
 
 application = webapp.WSGIApplication([
