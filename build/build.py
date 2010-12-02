@@ -1,13 +1,16 @@
+#! /usr/bin/python
+
 import os
 import markdown
 from datetime import datetime
+
+os.chdir('site') # fix directory in Linux
 
 md = markdown.Markdown(extensions = ['meta'])
 
 md.convertFile(input="content/about.md",
                output="markup/content/about.html",
                encoding="utf8")
-
 
 src_dir = 'content/articles'
 out_dir = 'markup/content/articles'
