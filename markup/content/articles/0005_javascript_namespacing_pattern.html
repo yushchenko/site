@@ -1,0 +1,61 @@
+<h3>Introduction</h3>
+<p>The simplest way to create namespace in JavaScript is variable declaration in global scope:</p>
+<pre><code>var app = { ns: {}};
+app.ns.aFunction = function aFunction() (/*...*/};
+</code></pre>
+<p>Looks a bit clumsy even in a small example.
+For a application with a couple of hundreds files it will make the code messy extremely fast
+especially if several files should contribute in the same namespace.</p>
+<p>For a real world app it would better to have a solution that fits the following basic requirements:</p>
+<ul>
+<li>Concise and readable syntax, namespace should be declared before its content;</li>
+<li>Ability to add members to the same namespace in several files;</li>
+<li>Scope for private data and functions;</li>
+<li>Simple and library independent implementation;</li>
+</ul>
+<h3>A Just Another Solution</h3>
+<p>In fact, there are several well known patterns that simplify namespacing in JavaScript.
+Right combination of them will provide a good way to solve the problem.</p>
+<p>First, namespace creation should be done automatically on demand:</p>
+<pre><code>ns('app.test.namespace');
+</code></pre>
+<p>This function parses namespace name and create appropriate chain of objects in global scope.
+If the namespace already exists the function just returns it without damaging.</p>
+<p>Next, created namespace should be filled with members in a convenient manner.
+The <a href="http://blogs.sitepoint.com/2010/11/30/my-favorite-javascript-design-pattern/">pattern</a> provided by James Edwards looks elegant and concise:</p>
+<pre><code>(function () {
+
+    var aPrivateMember = 'value';
+
+    this.aNamespaceMember = function() {/*...*/};
+
+}).apply(ns('app.test.namespace'));
+</code></pre>
+<p>Anonymous function gives scope for private members and <code>this</code> is used as reference to the namespace.</p>
+<p>Now lets give a final touch adding chaining.
+It helps us to move namespace declaration at the beginning
+and make the code a bit more readable hiding implementation details:</p>
+<pre><code>ns('ns.test').extend(function () {
+
+    var ctor,
+        secret = 'secret';  // private data
+
+    this.MyClass = ctor = function () {
+    };
+
+    ctor.prototype.getSecret = function getSecret() { // public method
+        return secret;
+    };
+});
+</code></pre>
+<h3>Micro Library</h3>
+<p>For the sake of convenience I have created a micro library which implements the discussed solution.</p>
+<p>It's called ns.js and available <a href="http://github.com/yushchenko/ns.js">here on Github</a>.</p>
+<p>Feel free to contact with <a href="/about/">me</a> if you have any suggestions.</p>
+<h3>Links</h3>
+<ol>
+<li><a href="http://github.com/yushchenko/ns.js">ns.js Micro Library on Github</a></li>
+<li><a href="http://javascriptweblog.wordpress.com/2010/12/07/namespacing-in-javascript/">Namespacing in JavaScript</a> by Angus Croll</li>
+<li><a href="http://blogs.sitepoint.com/2010/11/30/my-favorite-javascript-design-pattern/">My Favorite JavaScript Design Pattern</a> by James Edwards</li>
+<li><a href="http://michaux.ca/articles/javascript-namespacing">JavaScript Namespacing</a> by Peter Michaux</li>
+</ol>
