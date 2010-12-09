@@ -41,8 +41,9 @@ h1,h2,h3,h4,h5,h6 {
     margin: 0;
 }
 
-#menu span {
+#menu span { /* active item */
     font-weight: bold;
+    color: #5F5A60;
 }
 
 #bd {
@@ -96,4 +97,10 @@ h2.article-header {
 
 .article-content {
     margin-bottom: 30px;
+}
+
+.article-content pre {  /* source code */
+    margin-left: 5px;
+    padding-left: 10px;
+    border-left: solid 1px #D1D1D1;
 }

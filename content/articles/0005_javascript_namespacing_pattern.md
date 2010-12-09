@@ -2,39 +2,41 @@ id:     javascript-namespacing-pattern
 title:  A JavaScript Namespacing Pattern
 date:   December 09, 2010
 tags:   javascript,namespacing
-status: draft
+status: published
 
-### Introduction
+### Namespacing Problem
 
-The simplest way to create namespace in JavaScript is variable declaration in global scope:
+The simplest way to create namespace in JavaScript is to declare object variable in the global scope:
 
     var app = { ns: {}};
     app.ns.aFunction = function aFunction() (/*...*/};
     
 Looks a bit clumsy even in a small example.
-For a application with a couple of hundreds files it will make the code messy extremely fast
-especially if several files should contribute in the same namespace.
+For a application with a hundred of source files it will make the code messy extremely fast.
+The problem becomes even worse if several files should contribute in the same namespace
+and you don't want worry a lot about inclusion order.
 
-For a real world app it would better to have a solution that fits the following basic requirements:
+For real world tasks it would better to have a solution that fits the following basic requirements:
 
-*   Concise and readable syntax, namespace should be declared before its content;
+*   Concise and readable syntax without duplication of namespace name;
 *   Ability to add members to the same namespace in several files;
 *   Scope for private data and functions;
 *   Simple and library independent implementation;
 
-### A Just Another Solution
+### Combining Patterns for a Better Solution
 
-In fact, there are several well known patterns that simplify namespacing in JavaScript.
-Right combination of them will provide a good way to solve the problem.
+There are several well known patterns that simplify namespacing in JavaScript.
+Lets try to find a proper combination of them to split code into namespaces in an elegant way.
 
 First, namespace creation should be done automatically on demand:
 
     ns('app.test.namespace');
 
-This function parses namespace name and create appropriate chain of objects in global scope.
+The function parses namespace name and create appropriate chain of objects in global scope.
 If the namespace already exists the function just returns it without damaging.
 
-Next, created namespace should be filled with members in a convenient manner.
+Next, created namespace should be filled with members in a convenient manner
+without endless repetition of namespace's name.
 The [pattern][edwards] provided by James Edwards looks elegant and concise:
 
     (function () {
@@ -64,11 +66,10 @@ and make the code a bit more readable hiding implementation details:
     
 ### Micro Library
 
-For the sake of convenience I have created a micro library which implements the discussed solution.
+For the sake of convenience I have created a micro library which implements the solution discussed above.
+It's called `ns.js` and lives [here on Github][source].
 
-It's called ns.js and available [here on Github][source].
-
-Feel free to contact with [me][about] if you have any suggestions.
+Feel free to contact with [me][about] if you have any suggestions how to make it better.
 
 ### Links
 
@@ -78,7 +79,7 @@ Feel free to contact with [me][about] if you have any suggestions.
 4. [JavaScript Namespacing][michaux] by Peter Michaux
 
 
-[source]: http://github.com/yushchenko/ns.js
+[source]: http://github.com/yushchenko/ns.js "ns.js source code"
 [croll]: http://javascriptweblog.wordpress.com/2010/12/07/namespacing-in-javascript/
 [edwards]: http://blogs.sitepoint.com/2010/11/30/my-favorite-javascript-design-pattern/
 [michaux]: http://michaux.ca/articles/javascript-namespacing

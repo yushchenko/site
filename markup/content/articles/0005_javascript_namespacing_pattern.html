@@ -1,27 +1,29 @@
-<h3>Introduction</h3>
-<p>The simplest way to create namespace in JavaScript is variable declaration in global scope:</p>
+<h3>Namespacing Problem</h3>
+<p>The simplest way to create namespace in JavaScript is to declare object variable in the global scope:</p>
 <pre><code>var app = { ns: {}};
 app.ns.aFunction = function aFunction() (/*...*/};
 </code></pre>
 <p>Looks a bit clumsy even in a small example.
-For a application with a couple of hundreds files it will make the code messy extremely fast
-especially if several files should contribute in the same namespace.</p>
-<p>For a real world app it would better to have a solution that fits the following basic requirements:</p>
+For a application with a hundred of source files it will make the code messy extremely fast.
+The problem becomes even worse if several files should contribute in the same namespace
+and you don't want worry a lot about inclusion order.</p>
+<p>For real world tasks it would better to have a solution that fits the following basic requirements:</p>
 <ul>
-<li>Concise and readable syntax, namespace should be declared before its content;</li>
+<li>Concise and readable syntax without duplication of namespace name;</li>
 <li>Ability to add members to the same namespace in several files;</li>
 <li>Scope for private data and functions;</li>
 <li>Simple and library independent implementation;</li>
 </ul>
-<h3>A Just Another Solution</h3>
-<p>In fact, there are several well known patterns that simplify namespacing in JavaScript.
-Right combination of them will provide a good way to solve the problem.</p>
+<h3>Combining Patterns for a Better Solution</h3>
+<p>There are several well known patterns that simplify namespacing in JavaScript.
+Lets try to find a proper combination of them to split code into namespaces in an elegant way.</p>
 <p>First, namespace creation should be done automatically on demand:</p>
 <pre><code>ns('app.test.namespace');
 </code></pre>
-<p>This function parses namespace name and create appropriate chain of objects in global scope.
+<p>The function parses namespace name and create appropriate chain of objects in global scope.
 If the namespace already exists the function just returns it without damaging.</p>
-<p>Next, created namespace should be filled with members in a convenient manner.
+<p>Next, created namespace should be filled with members in a convenient manner
+without endless repetition of namespace's name.
 The <a href="http://blogs.sitepoint.com/2010/11/30/my-favorite-javascript-design-pattern/">pattern</a> provided by James Edwards looks elegant and concise:</p>
 <pre><code>(function () {
 
@@ -37,11 +39,9 @@ It helps us to move namespace declaration at the beginning
 and make the code a bit more readable hiding implementation details:</p>
 <pre><code>ns('ns.test').extend(function () {
 
-    var ctor,
+    var ctor = this.MyClass = function() {
+        },
         secret = 'secret';  // private data
-
-    this.MyClass = ctor = function () {
-    };
 
     ctor.prototype.getSecret = function getSecret() { // public method
         return secret;
@@ -49,12 +49,12 @@ and make the code a bit more readable hiding implementation details:</p>
 });
 </code></pre>
 <h3>Micro Library</h3>
-<p>For the sake of convenience I have created a micro library which implements the discussed solution.</p>
-<p>It's called ns.js and available <a href="http://github.com/yushchenko/ns.js">here on Github</a>.</p>
-<p>Feel free to contact with <a href="/about/">me</a> if you have any suggestions.</p>
+<p>For the sake of convenience I have created a micro library which implements the solution discussed above.
+It's called <code>ns.js</code> and lives <a href="http://github.com/yushchenko/ns.js" title="ns.js source code">here on Github</a>.</p>
+<p>Feel free to contact with <a href="/about/">me</a> if you have any suggestions how to make it better.</p>
 <h3>Links</h3>
 <ol>
-<li><a href="http://github.com/yushchenko/ns.js">ns.js Micro Library on Github</a></li>
+<li><a href="http://github.com/yushchenko/ns.js" title="ns.js source code">ns.js Micro Library on Github</a></li>
 <li><a href="http://javascriptweblog.wordpress.com/2010/12/07/namespacing-in-javascript/">Namespacing in JavaScript</a> by Angus Croll</li>
 <li><a href="http://blogs.sitepoint.com/2010/11/30/my-favorite-javascript-design-pattern/">My Favorite JavaScript Design Pattern</a> by James Edwards</li>
 <li><a href="http://michaux.ca/articles/javascript-namespacing">JavaScript Namespacing</a> by Peter Michaux</li>
