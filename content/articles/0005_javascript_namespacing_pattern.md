@@ -6,17 +6,17 @@ status: published
 
 ### Namespacing Problem
 
-The simplest way to create namespace in JavaScript is to declare object variable in the global scope:
+The simplest way to create a namespace in JavaScript is to declare object variable in the global scope:
 
     var app = { ns: {}};
     app.ns.aFunction = function aFunction() (/*...*/};
     
 Looks a bit clumsy even in a small example.
-For a application with a hundred of source files it will make the code messy extremely fast.
+For an application with a hundred of source files it will make the code messy extremely fast.
 The problem becomes even worse if several files should contribute in the same namespace
-and you don't want worry a lot about inclusion order.
+and you don't want to worry a lot about their inclusion order.
 
-For real world tasks it would better to have a solution that fits the following basic requirements:
+For real world tasks it would be better to have a solution that fits the following basic requirements:
 
 *   Concise and readable syntax without duplication of namespace name;
 *   Ability to add members to the same namespace in several files;
@@ -32,7 +32,7 @@ First, namespace creation should be done automatically on demand:
 
     ns('app.test.namespace');
 
-The function parses namespace name and create appropriate chain of objects in global scope.
+The function parses namespace name and creates appropriate chain of objects in the global scope.
 If the namespace already exists the function just returns it without damaging.
 
 Next, created namespace should be filled with members in a convenient manner
@@ -47,9 +47,9 @@ The [pattern][edwards] provided by James Edwards looks elegant and concise:
     
     }).apply(ns('app.test.namespace'));
 
-Anonymous function gives scope for private members and `this` is used as reference to the namespace.
+Anonymous function gives the scope for private members and `this` is used as reference to the namespace.
 
-Now lets give a final touch adding chaining.
+Now let's give a final touch adding chaining.
 It helps us to move namespace declaration at the beginning
 and make the code a bit more readable hiding implementation details:
 
