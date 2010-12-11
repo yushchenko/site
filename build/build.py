@@ -24,7 +24,7 @@ def get_article(meta, out_file_name):
     identifier = meta[u'id'][0]
     return {'id': identifier, 'title': meta['title'][0], 'status': meta['status'][0],
             'date': dt.strftime('%Y-%m-%d'), 'month': dt.strftime('%b'), 'day': dt.day, 'year': dt.year,
-            'file': out_file_name, 'url': URL_ROOT + '/blog/' + identifier }
+            'file': out_file_name, 'url': URL_ROOT + 'blog/' + identifier }
 
 for name in os.listdir(src_dir):
     out_file_name = name.replace('.md', '.html')
@@ -47,13 +47,19 @@ f.close()
 # Generation of RSS feed (rss.xml)
 rss_items = []
 
+def path(name):
+    return os.path.join(os.path.dirname(__file__), name)
+
 for article in lst:
+    f = open(os.path.join(out_dir, article['file']), 'r')
     rss_items.append(PyRSS2Gen.RSSItem(
          title = article['title'],
+         description = f.read(),
          link = article['url'],
          guid = PyRSS2Gen.Guid(article['url']),
          pubDate = datetime.strptime(article['date'], '%Y-%m-%d'))
     )
+    f.close()
 
 rss = PyRSS2Gen.RSS2(
     title = "Valery Yushchenko",

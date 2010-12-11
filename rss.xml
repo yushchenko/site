@@ -1,2 +1,355 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<rss version="2.0"><channel><title>Valery Yushchenko</title><link>http://www.yushchenko.name/</link><description>Articles by Valery Yushchenko</description><lastBuildDate>Sat, 11 Dec 2010 22:24:45 GMT</lastBuildDate><generator>PyRSS2Gen-1.0.0</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A JavaScript Namespacing Pattern</title><link>http://www.yushchenko.name//blog/javascript-namespacing-pattern</link><guid isPermaLink="true">http://www.yushchenko.name//blog/javascript-namespacing-pattern</guid><pubDate>Thu, 09 Dec 2010 00:00:00 GMT</pubDate></item><item><title>CSS Layout Game</title><link>http://www.yushchenko.name//blog/css-layout-game</link><guid isPermaLink="true">http://www.yushchenko.name//blog/css-layout-game</guid><pubDate>Mon, 06 Sep 2010 00:00:00 GMT</pubDate></item><item><title>Site from Scratch 1: The First Page</title><link>http://www.yushchenko.name//blog/site-from-scratch-1-the-first-page</link><guid isPermaLink="true">http://www.yushchenko.name//blog/site-from-scratch-1-the-first-page</guid><pubDate>Fri, 23 Jul 2010 00:00:00 GMT</pubDate></item><item><title>jQuery Performance Tips from Paul Irish</title><link>http://www.yushchenko.name//blog/jquery-performance-tips-from-paul-irish</link><guid isPermaLink="true">http://www.yushchenko.name//blog/jquery-performance-tips-from-paul-irish</guid><pubDate>Sun, 18 Jul 2010 00:00:00 GMT</pubDate></item><item><title>Site from Scratch 0: Introduction</title><link>http://www.yushchenko.name//blog/site-from-scratch-0-introduction</link><guid isPermaLink="true">http://www.yushchenko.name//blog/site-from-scratch-0-introduction</guid><pubDate>Sat, 10 Jul 2010 00:00:00 GMT</pubDate></item></channel></rss>
+<rss version="2.0"><channel><title>Valery Yushchenko</title><link>http://www.yushchenko.name/</link><description>Articles by Valery Yushchenko</description><lastBuildDate>Sat, 11 Dec 2010 22:48:43 GMT</lastBuildDate><generator>PyRSS2Gen-1.0.0</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>A JavaScript Namespacing Pattern</title><link>http://www.yushchenko.name/blog/javascript-namespacing-pattern</link><description>&lt;h3&gt;Namespacing Problem&lt;/h3&gt;
+&lt;p&gt;The simplest way to create a namespace in JavaScript is to declare object variable in the global scope:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var app = { ns: {}};
+app.ns.aFunction = function aFunction() (/*...*/};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Looks a bit clumsy even in a small example.
+For an application with a hundred of source files it will make the code messy extremely fast.
+The problem becomes even worse if several files should contribute in the same namespace
+and you don't want to worry a lot about their inclusion order.&lt;/p&gt;
+&lt;p&gt;For real world tasks it would be better to have a solution that fits the following basic requirements:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Concise and readable syntax without duplication of namespace name;&lt;/li&gt;
+&lt;li&gt;Ability to add members to the same namespace in several files;&lt;/li&gt;
+&lt;li&gt;Scope for private data and functions;&lt;/li&gt;
+&lt;li&gt;Simple and library independent implementation;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Combining Patterns for a Better Solution&lt;/h3&gt;
+&lt;p&gt;There are several well known patterns that simplify namespacing in JavaScript.
+Lets try to find a proper combination of them to split code into namespaces in an elegant way.&lt;/p&gt;
+&lt;p&gt;First, namespace creation should be done automatically on demand:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ns('app.test.namespace');
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The function parses namespace name and creates appropriate chain of objects in the global scope.
+If the namespace already exists the function just returns it without damaging.&lt;/p&gt;
+&lt;p&gt;Next, created namespace should be filled with members in a convenient manner
+without endless repetition of namespace's name.
+The &lt;a href="http://blogs.sitepoint.com/2010/11/30/my-favorite-javascript-design-pattern/"&gt;pattern&lt;/a&gt; provided by James Edwards looks elegant and concise:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;(function () {
+
+    var aPrivateMember = 'value';
+
+    this.aNamespaceMember = function() {/*...*/};
+
+}).apply(ns('app.test.namespace'));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Anonymous function gives the scope for private members and &lt;code&gt;this&lt;/code&gt; is used as reference to the namespace.&lt;/p&gt;
+&lt;p&gt;Now let's give a final touch adding chaining.
+It helps us to move namespace declaration at the beginning
+and make the code a bit more readable hiding implementation details:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ns('ns.test').extend(function () {
+
+    var ctor = this.MyClass = function() {
+        },
+        secret = 'secret';  // private data
+
+    ctor.prototype.getSecret = function getSecret() { // public method
+        return secret;
+    };
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Micro Library&lt;/h3&gt;
+&lt;p&gt;For the sake of convenience I have created a micro library which implements the solution discussed above.
+It's called &lt;code&gt;ns.js&lt;/code&gt; and lives &lt;a href="http://github.com/yushchenko/ns.js" title="ns.js source code"&gt;here on Github&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Feel free to contact with &lt;a href="/about/"&gt;me&lt;/a&gt; if you have any suggestions how to make it better.&lt;/p&gt;
+&lt;h3&gt;Links&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://github.com/yushchenko/ns.js" title="ns.js source code"&gt;ns.js Micro Library on Github&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://javascriptweblog.wordpress.com/2010/12/07/namespacing-in-javascript/"&gt;Namespacing in JavaScript&lt;/a&gt; by Angus Croll&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://blogs.sitepoint.com/2010/11/30/my-favorite-javascript-design-pattern/"&gt;My Favorite JavaScript Design Pattern&lt;/a&gt; by James Edwards&lt;/li&gt;
+&lt;li&gt;&lt;a href="http://michaux.ca/articles/javascript-namespacing"&gt;JavaScript Namespacing&lt;/a&gt; by Peter Michaux&lt;/li&gt;
+&lt;/ol&gt;</description><guid isPermaLink="true">http://www.yushchenko.name/blog/javascript-namespacing-pattern</guid><pubDate>Thu, 09 Dec 2010 00:00:00 GMT</pubDate></item><item><title>CSS Layout Game</title><link>http://www.yushchenko.name/blog/css-layout-game</link><description>&lt;p&gt;Positioning of elements on the page using CSS layout properties can be a tricky business and
+there's only one way to master it: practice, practice and practice.
+Reading books and articles will be quite useless without creating and playing with tens and hundreds of own examples.
+Most of the exercises are primitive,
+as usual, it's just a page with a couple of divs and several styles applied to them.&lt;/p&gt;
+&lt;p&gt;To simplify the process I have created an application that allows to create simple markup and apply styles on fly.
+As for me, it's more fast and convenient to see results of the changes immediately
+than hit refresh after every change on the page.&lt;/p&gt;
+&lt;p&gt;The application called "CSS Layout Game" is located &lt;a href="/sandbox/css-layout" title="CSS Layout Game"&gt;here&lt;/a&gt;.
+Thanks to jQuery library it contains only a bit more than one hundred lines of JavaScript code.
+The first version provides bare minimum of functions: you can add new elements and change their layout properties.
+I think, that's enough for the most of examples.
+There are no way to save created layout so every page refresh starts the game from the beginning.
+But practice makes it perfect, isn't it? So lets keep things simple.&lt;/p&gt;
+&lt;p&gt;Play, learn, enjoy and make the Web better :)&lt;/p&gt;</description><guid isPermaLink="true">http://www.yushchenko.name/blog/css-layout-game</guid><pubDate>Mon, 06 Sep 2010 00:00:00 GMT</pubDate></item><item><title>Site from Scratch 1: The First Page</title><link>http://www.yushchenko.name/blog/site-from-scratch-1-the-first-page</link><description>&lt;h3&gt;Introduction&lt;/h3&gt;
+&lt;p&gt;In building site, as in any other business, it's hard to begin from the blank.
+To simplify the process I'm going to start creating only one page with only one paragraph of the text.
+Nothing can be simplier, isn't it? So the step is going to be short and easy.&lt;/p&gt;
+&lt;p&gt;On the other hand, it's important to start in the right direction
+so the page should contain well formed HTML generated by Django template
+and styled with a separate CSS sheet.&lt;/p&gt;
+&lt;h3&gt;Preparing the Stage&lt;/h3&gt;
+&lt;p&gt;To play with source code from this article you need have &lt;a href="http://www.python.org" title="Python Programming Language"&gt;Python&lt;/a&gt; and &lt;a href="http://appengine.google.com/" title="Google App Engine"&gt;Google App Engine&lt;/a&gt; installed.&lt;/p&gt;
+&lt;p&gt;Example's source is located in the repository &lt;a href="http://github.com/yushchenko/siteSample" title="Sample&amp;apos;s repository on GitHub"&gt;here on GitHub&lt;/a&gt; 
+and I would recommend to clone it on your hard drive:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone git@github.com:yushchenko/siteSample.git
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;For every example a separate branch will be created,
+so the reader will be able to trace all history simply switching between these branches.&lt;/p&gt;
+&lt;p&gt;By the way, if you are willing to explore site's code itself, it can be found &lt;a href="http://github.com/yushchenko/site" title="GitHub repository with source code of this site"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Having preparations done let's move to building the site itself.&lt;/p&gt;
+&lt;h3&gt;Starting from URL&lt;/h3&gt;
+&lt;p&gt;As according the old Russian proverb - a theater starts from the wardrobe, as a site starts from the URL.&lt;/p&gt;
+&lt;p&gt;First of all, the address should be as short as it possible, so the name domain is required.
+Having spent a couple of hours for investigations, I decided to use &lt;a href="http://www.name.com" title="Name.com web site"&gt;name.com&lt;/a&gt; registrar.
+I liked their relatively simple and fast site and also 'bike-to-work incentive program'
+described in &lt;a href="http://en.wikipedia.org/wiki/Name.com" title="Wiki article about Name.com"&gt;the wikipedia article&lt;/a&gt;.
+Our decisions are sometimes driven by strange motives...&lt;/p&gt;
+&lt;p&gt;Next, the resource part of the URL should be short and verbose.
+For example, the link to this article should look something like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;www.yushchenko.name/blog/site-from-scratch-1-the-first-page
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Short, helps the user to understand where he's now and even not so hard to type.&lt;/p&gt;
+&lt;p&gt;The connection between a nice URL and application's code is usually called 'URL routing'.
+For &lt;a href="http://appengine.google.com/" title="Google App Engine"&gt;Google App Engine&lt;/a&gt; it can be configured either in &lt;code&gt;app.yaml&lt;/code&gt; config or
+during webapp framework initialization.
+The simplest routing contains just three lines of code:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;handlers:
+- url: /.*                # take any request to the site
+  script: main.py         # and run code from main.py to generate response
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Besides this at the beginning of the &lt;code&gt;app.yaml&lt;/code&gt; should be the description of the app:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;application: site
+version: 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and its run-time:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;runtime: python
+api_version: 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now the basic configuration is done
+and the site's ready to respond on incoming requests executing code in &lt;code&gt;main.py&lt;/code&gt;
+so it's a nice time to proceed with the next step.&lt;/p&gt;
+&lt;h3&gt;Markup Generation&lt;/h3&gt;
+&lt;p&gt;App Engine Webapp framework includes Django templates engine.
+It's a powerful mean of generation text in any format including HTML and CSS.
+As you remember, the initial step should be in the right direction, so
+the first Django's feature I'm going to use is &lt;a href="http://www.djangoproject.com/documentation/0.96/templates/#template-inheritance" title="Django documentation: template inheritance"&gt;template inheritance&lt;/a&gt;.
+In nutshell, it allows to create many pages with the same structure but different content.&lt;/p&gt;
+&lt;p&gt;Let's split page markup in two parts -
+&lt;code&gt;master.html&lt;/code&gt; that contains doctype and all tags required for well formed html document
+plus simple grid's markup for YUI 2 CSS framework:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;                          {% templatetag opencomment %} let's imagine that HTML5 is already with us #}
+&amp;lt;html lang="en"&amp;gt;
+  &amp;lt;head&amp;gt;
+    ...                                  {% templatetag opencomment %} links to ccs style sheets #}
+    &amp;lt;title&amp;gt;{% templatetag openblock %} block title % }Valery Yushchenko{% templatetag openblock %} endblock % }&amp;lt;/title&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;div id="doc"&amp;gt;
+
+      &amp;lt;div id="hd"&amp;gt;
+      ...                                {% templatetag opencomment %} header content #}
+      &amp;lt;/div&amp;gt;
+
+      &amp;lt;div id="bd"&amp;gt;
+        {% templatetag openblock %} block content %}{% templatetag openblock %} endblock %}
+      &amp;lt;/div&amp;gt;
+
+      &amp;lt;div id="ft"&amp;gt;
+      ...                                {% templatetag opencomment %} footer content #}
+      &amp;lt;/div&amp;gt;
+
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;home.html&lt;/code&gt; template inherits from &lt;code&gt;master.html&lt;/code&gt; and provides contents for master's blocks:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{% templatetag openblock %} extends "master.html" %}
+
+{% templatetag openblock %} block content %}
+
+Hello World!                             {% templatetag opencomment %} text to display #}
+
+{% templatetag openblock %} endblock %}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now let's allow Django render the page putting the following code into &lt;code&gt;main.py&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import os
+from google.appengine.ext.webapp import template
+
+home_tmpl = os.path.join(os.path.dirname(__file__), 'markup/home.html')
+
+print 'Content-Type: text/html'           # let the browser know that it's getting html
+print ''
+print template.render(home_tmpl, {})      # return response content - the text itself
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At this point, there are five files in application's directories:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;.../siteSample:
+drwxrwxrwx   0 Jul 22 20:20 markup
+-rw-rw-rw- 134 Jul 21 21:01 README.md
+-rw-rw-rw- 115 Jul 21 08:13 app.yaml
+-rw-rw-rw- 328 Jul 22 20:20 main.py
+
+.../siteSample/markup:
+-rw-rw-rw-  86 Jul 21 08:18 home.html
+-rw-rw-rw- 539 Jul 22 20:25 master.html
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;and the application is ready to run.&lt;/p&gt;
+&lt;p&gt;If you have cloned &lt;a href="http://github.com/yushchenko/siteSample" title="Sample&amp;apos;s repository on GitHub"&gt;sample's repo&lt;/a&gt;, simply switch to branch &lt;a href="http://github.com/yushchenko/siteSample/tree/example1" title="Sample&amp;apos;s source code: example 1 - page + master page"&gt;example1&lt;/a&gt; 
+and execute the following command from &lt;code&gt;../siteSample&lt;/code&gt; directory:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dev_appserver.py siteSample
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To look at the result of our efforts visit &lt;code&gt;http://localhost:8080/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Looks not so good, does it? 
+So, it's a good moment to style our page.&lt;/p&gt;
+&lt;h3&gt;Adding Styles&lt;/h3&gt;
+&lt;p&gt;Styling HTML page might be a tricky business.
+There are several popular browsers around and every of them has its own opinion how to treat certain details of CSS.
+It's definitely not a big issue for the page with only one paragraph of text,
+but I would like to avoid problems in the future mainly
+because tinkering with CSS styles is not so interesting for me as programming or writing.&lt;/p&gt;
+&lt;p&gt;The best way to save time and simplify the life is usage of an existing CSS framework.
+So, let's ask guys from Yahoo UI team to help me a bit adding the following link into the page:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;link rel="stylesheet" type="text/css"
+      href="http://yui.yahooapis.com/combo?
+      2.8.1/build/reset-fonts-grids/reset-fonts-grids.css&amp;amp;2.8.1/build/base/base-min.css"&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It tells the browser to load the file directly from Yahoo's content distribution network (CDN).&lt;/p&gt;
+&lt;p&gt;There are four components that are combined in the referenced style sheet.
+YUI CSS &lt;a href="http://developer.yahoo.com/yui/reset/" title="YUI 2 Reset"&gt;Reset&lt;/a&gt; helps to minimize browser's particularities making further work easier,
+&lt;a href="http://developer.yahoo.com/yui/base/" title="YUI 2 Base"&gt;Base&lt;/a&gt; and &lt;a href="http://developer.yahoo.com/yui/fonts/" title="YUI 2 Fonts"&gt;Font&lt;/a&gt; modules make standard HTML elements such as headers
+and paragraphs look much more professional
+and &lt;a href="http://developer.yahoo.com/yui/grids/" title="YUI 2 Grids"&gt;Grids&lt;/a&gt; CSS provides simple fixed size grid layout for the page.&lt;/p&gt;
+&lt;p&gt;Checkout branch &lt;a href="http://github.com/yushchenko/siteSample/tree/example2" title="Sample&amp;apos;s source code: example 2 - adding YUI 2 CSS Framework"&gt;example2&lt;/a&gt; and see how the page looks styled by YUI 2 CSS.&lt;/p&gt;
+&lt;p&gt;Now the page looks better but I would like to change element's colors, margins and other minor details
+adding the link to my CSS table:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;link rel="stylesheet" href="/styles/master.css" /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To make App Engine serve &lt;code&gt;master.css&lt;/code&gt; file add static dir rout into &lt;code&gt;app.yaml&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- url: /styles
+  static_dir: styles
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Switch to branch &lt;a href="http://github.com/yushchenko/siteSample/tree/example3" title="Sample&amp;apos;s source code: example 3 - custom styles"&gt;example3&lt;/a&gt; and run app to see fully styled "Hello World!" page.&lt;/p&gt;
+&lt;h3&gt;The next step&lt;/h3&gt;
+&lt;p&gt;Any site is completely useless without content and it's reasonable to fill this gap as soon as possible.
+So in the next article I'm going to find out the most convenient way to put writings on recently the created page.&lt;/p&gt;
+&lt;h3&gt;Links&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;The first article of this cycle - &lt;a href="/blog/site-from-scratch-0-introduction" title="Site from Scratch 0: Intorduction"&gt;Site from Scratch 0: Introduction&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Official App Engine's tutorial can be found &lt;a href="http://code.google.com/appengine/docs/python/gettingstarted/" title="Python App Engine tutorial"&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Django templates documentation is &lt;a href="http://www.djangoproject.com/documentation/0.96/templates/" title="Django templates, version 0.96"&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;YUI 2 CSS tools: &lt;a href="http://developer.yahoo.com/yui/reset/" title="YUI 2 Reset"&gt;reset&lt;/a&gt;, &lt;a href="http://developer.yahoo.com/yui/base/" title="YUI 2 Base"&gt;base&lt;/a&gt;, &lt;a href="http://developer.yahoo.com/yui/fonts/" title="YUI 2 Fonts"&gt;fonts&lt;/a&gt;, &lt;a href="http://developer.yahoo.com/yui/grids/" title="YUI 2 Grids"&gt;grids&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;</description><guid isPermaLink="true">http://www.yushchenko.name/blog/site-from-scratch-1-the-first-page</guid><pubDate>Fri, 23 Jul 2010 00:00:00 GMT</pubDate></item><item><title>jQuery Performance Tips from Paul Irish</title><link>http://www.yushchenko.name/blog/jquery-performance-tips-from-paul-irish</link><description>&lt;p&gt;Today I've been happy to find a really cool presentation about jQuery performance.
+It was created by &lt;a href="http://paulirish.com/" title="Paul Irish blog"&gt;Paul Irish&lt;/a&gt; and located &lt;a href="http://www.slideshare.net/paul.irish/perfcompression" title="jQuery Anti-Patterns for Performance &amp;amp; Compression"&gt;here&lt;/a&gt;.
+The &lt;a href="http://vimeo.com/10295601" title="jQuery Anti-Patterns for Performance &amp;amp; Compression Video"&gt;video&lt;/a&gt; is also available online.&lt;/p&gt;
+&lt;p&gt;In my humble opinion, the presentation should be seen by every jQuery developer
+and I regret that I have found it so late.
+This short summary shows the picture in whole but, in any case, doesn't replace the original.&lt;/p&gt;
+&lt;p&gt;1. Append as late as it's possible:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; for ( .. many items ..) { 
+     $(...).append(item);           // slow, many DOM operations
+ }
+
+ var items = [];
+ for ( ... many items ...) {
+     items.push(item);    
+ }
+ $(...).html(items.join(''));       // faster, changing DOM in one touch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;2. Don't requery:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$(target).append('&amp;lt;to append /&amp;gt;');
+$('&amp;lt;to append /&amp;gt;').click(...);
+
+$('&amp;lt;to append /&amp;gt;').appendTo(target).click(...);      // working with appended elements
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;3. Query in context:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$('#container').find('.an-item')...; // the recomended way
+$('.an-item', '#container')...;      // the same
+
+$('#container .an-item')...;         // usual and slow approach
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;4. Read selectors from right to left like Sizzle does:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$('#element span')...;               // it's going to find all spans in entire document first
+$('#element').find('span')...;       // using context again
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;5. Be specific:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$(':radio')...;                      // = *:radio, select everything than filter it
+$('input:radio')...;                 // much faster version
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;6. Delegate - live events in context (jQuery 1.4.2):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$('#container').delegate('click', '.item', fn);    // explicit context reduce overhead
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;7. Detach it from DOM (jQuery 1.4):&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var container = $('#container'), parent = container.parent();
+container.detach();
+..                                   // do havy DOM manipulations here
+parent.append(container);            // allows browser render your changes
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;8. Don't pay for nothing:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$('#notExistingElement').slideUp();  // does a lot of job
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;9. Attach data fast:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$(element).data(key, value);         // the usual way
+$.data(elemement, key, value);       // works up to 10x faster
+&lt;/code&gt;&lt;/pre&gt;</description><guid isPermaLink="true">http://www.yushchenko.name/blog/jquery-performance-tips-from-paul-irish</guid><pubDate>Sun, 18 Jul 2010 00:00:00 GMT</pubDate></item><item><title>Site from Scratch 0: Introduction</title><link>http://www.yushchenko.name/blog/site-from-scratch-0-introduction</link><description>&lt;h3&gt;The Idea&lt;/h3&gt;
+&lt;p&gt;I have been thinking about having my own place in the Internet for many years.
+Time was coming but this dream has remained just a dream probably because it had never been the real necessity for me.
+On the other hand, building of a site it's a big pile of problems for an unprepared person. 
+One needs, for example, to register a domain, find a hosting, develop or adopt a site engine and so on.
+This long list is limited only by creator's ambitions and imagination.&lt;/p&gt;
+&lt;p&gt;Why not to use existing solutions?
+There are many fashionable Web 2.0 services which let anybody create and publish content.
+Hundreds and thousands blog spots, wikis, social networks allow to share your writing, pictures, links, contacts...
+Seems very simple but everything comes with its own price.&lt;/p&gt;
+&lt;p&gt;The first and the most important concern is &lt;em&gt;the lack of control&lt;/em&gt;.
+Let imagine, I've established a blog on &lt;a href="http://www.blogger.com/" title="Blogger - an example of blog hosting"&gt;blogger.com&lt;/a&gt;
+The first my question would be how to remove this ugly blue header from my pages.
+I clearly understand that it's a part of the app but I simply don't want to have it up on my writings...
+It could sound weird but as a developer I want control fully what reader's browser gets from the site.
+Probably, it's due to mine disgust to bloated software in general and bloated web sites in particular.&lt;/p&gt;
+&lt;p&gt;Next, every service has its own limitations. 
+For instance, using blog is extremely easy to publish articles and share photos.
+On the other hand, what should be done if I want to create a small JavaScript application to enrich my developer's portfolio? 
+Use another service and link it? But I want put it &lt;em&gt;inside&lt;/em&gt; my last article...&lt;/p&gt;
+&lt;p&gt;It could sound a bit strange but it looks like that I'm willing to spend my time to get &lt;em&gt;exactly&lt;/em&gt; what I want.
+Not more but not less.&lt;/p&gt;
+&lt;p&gt;There are two ways to do so.
+The first one is the usage of an existing solution such as a CMS, blog engine etc.
+Spend more or less time for studying it, setting required configuration up, customizing and than fixing several weird bugs...
+It's a usual way how we do things at work, isn't it?
+This approach works really well while the solution is used how it was thought by its creator,
+but only a small step aside costs much more than ten or even hundred steps forward.
+Obviously, it's crucial to choose the right solution that fits one's needs as close as it's possible.
+Unfortunately, right now I don't know precisely what I want to create, 
+so, I'm going to chose the second way - start from the blank sheet.&lt;/p&gt;
+&lt;p&gt;The last but not the least thing here is that simple fact
+that creation of something from scratch can be extremely interesting.
+Unfortunately or not, but it rarely happens when a programmer gets opportunity to do something on his own mind at work.
+So I'm going to have a great fun developing at least own website.&lt;/p&gt;
+&lt;h3&gt;The Requirements&lt;/h3&gt;
+&lt;p&gt;The major requirement is &lt;em&gt;simplicity&lt;/em&gt;.
+The simplest implementation is the best.
+For example, the most widespread way of data representation is text format.
+Why? Because it's simple.
+So, I'm going to keep all stuff editable in Emacs (replace it with your favorite editor)
+unless it's really impractical (images is a good example).
+By the way, a text is not only simple but allows to see diffs (using a VCS is a good habit),
+have several versions of the same article and easily or even automatically merge them
+(yes, it's like dealing with source code, why not?) and use grep and other Unix utils. 
+In addition, it helps keep my mind healthy because minimizes usage of M$ Word or other similar products
+created for such called 'stupid users'.
+Binary formats and databases are great only when they are used on proper place.&lt;/p&gt;
+&lt;p&gt;So keep everything simple including this 'requirements' letting  space for creativity.&lt;/p&gt;
+&lt;h3&gt;The Technologies&lt;/h3&gt;
+&lt;p&gt;On client side life's simple.
+I need only HTML, CSS and JavaScript. No Flash. No SilverLight.
+Keep it simple, even primitive and it will work everywhere.
+There is also a space for usage of existing JavaScript libraries, for example jQuery, not to reinvent the wheel.&lt;/p&gt;
+&lt;p&gt;On server-side there are much more options. Let's narrow them.
+First of all, I love dynamic languages
+and it's a pain to switch between dynamic (JavaScript) and static (e.g. C# or Java) languages all the time.
+For small application written by one person client and server sides should fit well.
+Next, the language should be stable and have plenty of libraries.
+Writing the one hundred first implementation of RSS is not so fascinating.
+At the end, I'm too lazy to study a new language especially for a project.
+So there is only one candidate in the rest, it's &lt;a href="http://python.org/" title="Python Programing Language"&gt;Python&lt;/a&gt; programming language.&lt;/p&gt;
+&lt;p&gt;There is also the hosting problem. 
+I'm definitely not a system administrator, love rather create than thinker something.
+So I would like to have set up and trouble-free hosting.
+I thought that it's just an illusion until I found &lt;a href="https://appengine.google.com/" title="Google App Engine"&gt;Google App Engine&lt;/a&gt;.
+It's a great example of solving problem adding extra level of abstraction,
+in this case, it's abstraction between a developer and a hosting.
+And it supports Python as the first class citizen so no way to escape, I'm catch.&lt;/p&gt;
+&lt;h3&gt;What next?&lt;/h3&gt;
+&lt;p&gt;The answer is easy, as long way starts form the first step as a site begins from &lt;a href="/blog/site-from-scratch-1-the-first-page" title="Site from Scratch 1: The First Page"&gt;the first page&lt;/a&gt;.&lt;/p&gt;</description><guid isPermaLink="true">http://www.yushchenko.name/blog/site-from-scratch-0-introduction</guid><pubDate>Sat, 10 Jul 2010 00:00:00 GMT</pubDate></item></channel></rss>
