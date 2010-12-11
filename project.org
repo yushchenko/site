@@ -1,5 +1,5 @@
 * TODOs
-  - add RSS feed
+  - favicon
   - add code coloring
   - fix print
   - add separate error page with article list

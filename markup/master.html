@@ -10,24 +10,28 @@
     {% block styles %}{% endblock %}
     <title>{% block title %}Valery Yushchenko{% endblock %}</title>
     <meta name="google-site-verification" content="VrnRZN7fm3lnnCOaxhkDohCMlZ05W8fpKo3Wb-5yAw0" />
+    <link rel="alternate" type="application/rss+xml"  href="/rss/blog" title="rss feed">
   </head>
 
   <body>
     <div id="doc">
 
       <div id="hd">
+        <div id="ext-menu">
+          <a type="application/rss+xml" target="_blank" href="/rss/blog" title="Feed this link to your favorite RSS reader :)">RSS</a>
+        </div>
         <h1>Valery Yushchenko</h1>
         <div id="menu">
           {% ifequal page_name "home" %}
               <span>Home</span>
           {% else %}
-              <a href="/">Home</a>
+              <a href="/" title="All articles.">Home</a>
           {% endifequal %}
 
           {% ifequal page_name "about" %}
               <span>About</span>
           {% else %}
-              <a href="/about/">About</a>
+              <a href="/about/" title="More information about me and this site.">About</a>
           {% endifequal %}
         </div>
       </div>
@@ -38,7 +42,7 @@
 
       <div id="ft">
 
-        <a class='license' rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+        <a class='license' rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/" target="_blank"> 
           Creative Commons - Non Commercial
         </a>
 

@@ -13,6 +13,9 @@ handlers:
   static_files: robots.txt
   upload: robots.txt
 
+- url: /rss/blog
+  static_files: rss.xml
+  upload: rss.xml
 
 
 - url: /images/(.*)
