@@ -1,5 +1,4 @@
 * TODOs
-  - extend about page - links to linkedin, twitter, github
   - add RSS feed
   - add code coloring
   - fix print
