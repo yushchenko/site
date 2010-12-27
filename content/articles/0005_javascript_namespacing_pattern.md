@@ -57,7 +57,7 @@ and make the code a bit more readable hiding implementation details:
 
         var ctor = this.MyClass = function() {
             },
-            secret = 'secret';  // private data
+            secret = 'secret';  // private namespace data, common for all instances
 
         ctor.prototype.getSecret = function getSecret() { // public method
             return secret;
