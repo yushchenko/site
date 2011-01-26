@@ -21,10 +21,32 @@ h2 {
     margin-bottom: 8px;
 }
 
-#downloads {
+.cv-downloads {
     float: right;
 }
-#downloads a {
+
+.cv-downloads a {
     display: inline-block;
     margin-right: 5px;
+}
+
+@media screen {
+    .cv-contacts, .cv-header-name { display: none; }
+}
+
+@media print {
+
+    #hd, .cv-downloads { display: none; }
+
+    .cv-contacts {
+        display:block;
+        float: right;
+        text-align:right;
+    }
+
+    .cv-header { margin-bottom: 50px; }
+
+    .cv-header-name { display: inline; }
+
+    h2 { border-bottom: 1px solid black; }
 }

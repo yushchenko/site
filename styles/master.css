@@ -112,3 +112,11 @@ h2.article-header {
     padding-left: 10px;
     border-left: solid 1px #D1D1D1;
 }
+
+
+@media print {
+    
+    #menu, #ext-menu, #ft { display: none; }
+
+    #hd, #bd { border: 0px; }
+}
