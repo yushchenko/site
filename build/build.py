@@ -15,6 +15,10 @@ md.convertFile(input="content/about.md",
                output="markup/content/about.html",
                encoding="utf8")
 
+md.convertFile(input="content/job_search.md",
+               output="markup/content/job_search.html",
+               encoding="utf8")
+
 src_dir = 'content/articles'
 out_dir = 'markup/content/articles'
 lst = []

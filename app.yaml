@@ -18,18 +18,9 @@ handlers:
   upload: rss.xml
 
 
-- url: /images/(.*)
-  static_files: images/\1
-  upload: images/(.*)
-
-- url: /styles/(.*)
-  static_files: styles/\1
-  upload: styles/(.*)
-
-- url: /scripts/(.*)
-  static_files: scripts/\1
-  upload: scripts/(.*)
-
+- url: /(images|styles|scripts|files)/(.*)
+  static_files: \1/\2
+  upload: (images|styles|scripts|files)/(.*)
 
 
 - url: /.*

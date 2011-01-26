@@ -64,12 +64,18 @@ class CV(webapp.RequestHandler):
         values = {'page_name': 'cv'}
         self.response.out.write(template.render(path('markup/pages/cv.html'), values))
 
+class JobSearch(webapp.RequestHandler):
+    def get(self):
+        values = {'page_name': 'js'}
+        self.response.out.write(template.render(path('markup/pages/job_search.html'), values))
+
 application = webapp.WSGIApplication([
-    ('/',             HomePage),
-    ('/about/',       AboutPage),
-    (r'/blog/(.*)',   ArticlePage),
-    ('/sandbox/css-layout', CssLayout),
-    (r'/cv/?',        CV)
+    ('/',              HomePage),
+    (r'/about/?',      AboutPage),
+    (r'/blog/(.*)',    ArticlePage),
+    (r'/sandbox/css-layout/?', CssLayout),
+    (r'/cv/?',         CV),
+    (r'/job-search/?', JobSearch)
 ], debug=True);        
 
 
