@@ -1,0 +1,22 @@
+table {
+    display: none;
+}
+
+#cv-technical-skills table, #cv-miscellaneous table {
+    display: table;
+    width: 100%;
+}
+
+#cv-technical-skills td, #cv-miscellaneous td {
+    border: 0px;
+}
+
+#cv-miscellaneous td {
+    padding-left: 0;
+}
+
+h2 {
+    border-bottom: 1px solid #D1D1D1;
+    padding-bottom: 2px;
+    margin-bottom: 8px;
+}

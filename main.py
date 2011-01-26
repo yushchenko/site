@@ -59,11 +59,17 @@ class CssLayout(webapp.RequestHandler):
         values = {'page_name': 'css_layout'}
         self.response.out.write(template.render(path('markup/sandbox/css_layout.html'), values))
 
+class CV(webapp.RequestHandler):
+    def get(self):
+        values = {'page_name': 'cv'}
+        self.response.out.write(template.render(path('markup/pages/cv.html'), values))
+
 application = webapp.WSGIApplication([
     ('/',             HomePage),
     ('/about/',       AboutPage),
     (r'/blog/(.*)',   ArticlePage),
-    ('/sandbox/css-layout', CssLayout)
+    ('/sandbox/css-layout', CssLayout),
+    (r'/cv/?',        CV)
 ], debug=True);        
 
 
