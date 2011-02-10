@@ -1,0 +1,203 @@
+<h3>Why To Build?</h3>
+<p>There are two phases in development repeated many times every day: making changes and checking if they work.
+Build is in the middle, it can generate some code as soon as runs automatic code checks.
+In many development environments build is mandatory, you need compile the code to see changes made.
+Developing web applications we can postpone code verification and unit tests
+and switch directly to checking our changes.
+Working under pressure we tend to do so quite often forgetting about the checks at all
+and then spend hours fixing strange bugs.
+Discipline is a good thing but in this case automation is much more reliable.</p>
+<p>The idea is fairly simple: the application references only combined JavaScript files
+making build mandatory.
+The first build step is code generation to keep sources and configs DRY.
+Right after generation it's reasonable to check all code with JSLint.
+If code quality is OK, it's a good time to run unit tests.
+Only when all three previous steps are successful,
+combining is done and the developer can see the changes made.</p>
+<p>A web application can be built using different tools
+but build based on Ant is sometimes considered as a kind of a standard.</p>
+<ul>
+<li><strong>Apache Ant</strong> - split build into separate tasks, combining, regexp replacement, running other tools;</li>
+<li><strong>Mozila Rhino</strong> - run code generation scripts and JSLint;</li>
+<li><strong>JSLint</strong> - check JavaScript code quality;</li>
+<li><strong>JsTestDriver</strong> - to run Jasmine unit tests in several browsers during the build;</li>
+<li><strong>Google Closure Compiler</strong> - to crunch the code;</li>
+</ul>
+<p>The described build process was developed as part of <a href="https://github.com/yushchenko/formEngine.js" title="FormEngine.js Project Home">formEngine.js</a> project.
+Many great ideas and even code fragments were taken from jQuery 1.4 and jQuery UI builds.</p>
+<h3>Code Generation</h3>
+<p>To run build and tests we need reference the same set of files in several different places:
+in <code>build.xml</code> for combining, in <code>tests.yaml</code> to run unit tests using JsTestDriver,
+in <code>tests.html</code> to debug tests in browser...
+In such situation a good solution is consider <code>build.xml</code> as the data source for
+automatic generation of all other files.
+This approach helps to avoid stupid mistakes made adding or removing files.</p>
+<p>Lets mark required files in <code>build.xml</code> with a kind of tags
+and than parse it using regular expressions to extract the file lists required to generate other configs.
+The tags should be put in comments to make Ant completely ignore them:</p>
+<pre><code>&lt;concat destfile="..." &gt;
+  &lt;fileset file="source/fe.js" /&gt; &lt;!--lint,test--&gt;
+  ...
+&lt;/concat&gt;
+</code></pre>
+<p>In the code fragment above file <code>source/fe.js</code> is marked for JSLint check using <code>lint</code> tag
+and as testable code with <code>test</code> tag.</p>
+<p>On the first stage of the build we run script that parses <code>build.xml</code>,
+extracts all files marked with <code>test</code> tag and generates <code>tests.yaml</code> and <code>tests.html</code> files
+using predefined templates.
+The script is written in JavaScript language and runs using Mozila Rhino JavaScript engine:</p>
+<pre><code>&lt;target name="gen"&gt;
+  &lt;exec executable="java" failonerror="true"&gt;
+    &lt;arg line="-jar build/libs/js.jar build/generate.js" /&gt;
+  &lt;/exec&gt;
+&lt;/target&gt;
+</code></pre>
+<p>Take a look at <a href="https://github.com/yushchenko/formEngine.js/blob/v0.2/build/utils.js" title="FormEngine.js 0.2 Source: utils.js">utils.js</a> and <a href="https://github.com/yushchenko/formEngine.js/blob/v0.2/build/generate.js" title="FormEngine.js 0.2 Source: generate.js">generate.js</a> scripts for implementation details.</p>
+<h3>Checking Code Quality with JSLint</h3>
+<p>Having all code generated we can start one of the most important tasks - JSLint check.
+In my opinion, the code quality check should be done before unit testing
+because it quite often reveals misprint and low level mistakes.
+It is not so wise to spend time fixing broken unit test having a variable name misspelled.</p>
+<p>Next, it's very convenient to check not combined source but original files,
+in this case row number and column returned by JSLint can be used to jump directly to the mistake
+using an IDE features.
+For example, in Emacs
+it's enough to return error reference in simple format (path:line:column) in compilation output.
+Such small conveniences look not so important at the first glance
+but during project's life span they save pretty much developer's time.</p>
+<p>To run JSLint simple <a href="https://github.com/yushchenko/formEngine.js/blob/v0.2/build/lint.js" title="Form Engine.js 0.2 Source: lint.js">wrapper</a> is used,
+it extracts list of files for check from <code>build.xml</code> by <code>lint</code> tag
+and then feeds the files one by one to JSLint.
+If there is at least one error the script returns error code to make Ant stop the build
+(<code>failonerror</code> attribute set for the build task).</p>
+<h3>Running Unit Tests</h3>
+<p>When the code seems clean at least from JSLint's point of view, it's a good time to run unit tests.
+Before the build JsTestDriver server should be started using the following command:</p>
+<pre><code>java -jar JsTestDriver-1.2.2.jar --port 9876
+</code></pre>
+<p>And one or several browsers must be captured by the test server using <code>http://localhost:9876/capture</code> URL.</p>
+<p>During the build JsTestDriver loads code according <code>tests.yaml</code> config into all captured browsers in parallel:</p>
+<pre><code>&lt;target name="tests" depends="jslint"&gt; 
+  &lt;exec executable="java" failonerror="true"&gt;
+    &lt;arg line="-jar JsTestDriver-1.2.2.jar --config tests/tests.yaml --tests all" /&gt;
+  &lt;/exec&gt;
+&lt;/target&gt;
+</code></pre>
+<p>At the end it returns error code, if one or more unit tests fail, that leads to build termination
+due to <code>failonerror</code> attribute.
+Stopping the build on JSLint error or unit test failure could be considered as a kind of inconvenience
+but in 99% of cases the developer needs to fix such issues as soon as possible
+before he forgets subtle details of changes made.
+Such strategy emphasize the importance of code verification and unit testing
+because even small error doesn't allows to see the result of your work.</p>
+<p>On the other hand, there is no solution that fits every situation perfectly
+and sometimes a project should be built in spite of broken tests.
+In this case, <code>failonerror</code> attribute should be removed from <code>tests</code> task.</p>
+<h3>Combining, Inserting Version Number &amp; Date</h3>
+<p>Combining of several files is quite simple with Ant, it's made by <code>concat</code> task.
+The <code>concat</code> contains list of files that should be included in target file.
+Notice <code>fixlastline</code> attribute, it adds line break at the end of every file to make result code more
+readable (typical mistakes with lost semicolon at the end of the file should be found by JSLint).
+The file list is also used for code generation so files are marked by <code>lint</code> and <code>test</code> tags.</p>
+<pre><code>&lt;loadfile property="version" srcfile="version.txt" /&gt;
+&lt;exec executable="git" outputproperty="date"&gt;
+  &lt;arg line="log -1 --pretty=format:%ad" /&gt;
+&lt;/exec&gt;
+
+&lt;target name="combine" depends="tests"&gt;
+
+  &lt;echo message="Building ${FE}.js..." /&gt;
+
+  &lt;concat destfile="${FE}.js" fixlastline="yes"&gt;
+    &lt;fileset file="source/intro.js" /&gt;
+    &lt;fileset file="source/fe.js" /&gt; &lt;!--lint,test--&gt;
+    &lt;fileset file="source/fe.dsl.js" /&gt; &lt;!--lint,test--&gt;      
+    &lt;fileset file="source/fe.rule.js" /&gt; &lt;!--lint,test--&gt;
+    &lt;!-- many other files here... --&gt;
+    &lt;fileset file="source/outro.js" /&gt;
+  &lt;/concat&gt;
+
+  &lt;replaceregexp match="@VERSION" replace="${version}"
+                 flags="g" byline="true" file="${FE}.js" /&gt;
+  &lt;replaceregexp match="@DATE" replace="${date}" file="${FE}.js" /&gt;
+
+&lt;/target&gt;
+</code></pre>
+<p>It's convenient to keep version number in one separate file
+and insert it into all result files during the build.
+Typical solution is to use <code>replaceregexp</code> task to replace <code>@VERSION</code> string by current number
+taken from file by <code>loadfile</code> task.</p>
+<p>Things are a bit more complex with <code>@DATE</code> replacement.
+The code above, taken from jQuery 1.4 build, assumes that Git version control is used.
+It extracts the date of the last commit using <code>git log</code> command
+and than feeds it to <code>replaceregexp</code> task.</p>
+<h3>The Final Step: Crunching</h3>
+<p>To minify JavaScript code Google Closure Compiler is applied to all combined files:</p>
+<pre><code>&lt;target name="min" depends="combine"&gt;
+
+  &lt;echo message="Minifing js files..." /&gt;
+
+  &lt;apply executable="java" parallel="false" verbose="true" dest="."&gt;
+    &lt;fileset dir="."&gt;
+      &lt;include name="${FE}.js" /&gt;
+      &lt;!-- other files here --&gt;
+    &lt;/fileset&gt;
+    &lt;arg line="-jar" /&gt;
+    &lt;arg path="build/libs/google-compiler-20100917.jar" /&gt;
+    &lt;arg value="--warning_level" /&gt;
+    &lt;arg value="QUIET" /&gt;
+    &lt;arg value="--js_output_file" /&gt;
+    &lt;targetfile /&gt;
+    &lt;arg value="--js" /&gt;
+    &lt;mapper type="glob" from="*.js" to="*.min.js" /&gt;
+  &lt;/apply&gt;
+
+&lt;/target&gt;
+</code></pre>
+<h3>Drawbacks</h3>
+<p>The described build process proved to be usable and quite efficient
+but it has several drawbacks so there is still enough room for improvements.</p>
+<p>The first problem is that JsTestDriver server should be run and at least one browsed should be captured
+otherwise it can't run unit tests so the build seems broken.
+The work around is to run the server and browsers on operation system start up.
+Unfortunately, it is not complete solution because from time to time (quite rarely)
+connection between the captured browser and the test server is lost
+so you have to recapture the browsers.</p>
+<p>Next, such build may work quite slow.
+For example, on my netbook (Atom 1.6GHz, 1Gb) complete build of <a href="https://github.com/yushchenko/formEngine.js" title="FormEngine.js Project Home">formEngine.js</a>
+takes more than 20 seconds.
+It is not so bad but I don't mind to reduce this time in tenfold.</p>
+<p>The last drawback it inherent dependency on Java and Ant,
+not a big deal, but these tools should be installed on all developer's and build machines.</p>
+<h3>What Next: Glance in the Future</h3>
+<p>The solution described in this article has been developed at 2010
+but JavaScript world goes forward so fast that at the beginning of 2011
+it already seems a bit obsolete.
+I wonder how it should evolve in the near feature
+and what of cutting edge technologies will make developer's life a bit easier.</p>
+<p>I bet on Node.js.
+Ant is good and solves most of the problems more or less gracefully
+but it's so tempting to write all build in pure JavaScript instead of XML...</p>
+<p>Lets just look around.
+JSLint has always been in JavaScript
+and now there is also new and cool minifier - Uglify.js.
+It's used by jQuery 1.5 so there is no doubts in its quality and maturity.
+The results of Uglify.js are even better than Closure Compiler shows.
+Besides these the most complex components there are many other build tools present,
+for example, Jake is a JavaScript Ant replacement
+and jasmine-node could be used to run Jasmine tests directly under Node.js.</p>
+<p>The ground seems ready now and, I hope, in a next article about web application build
+there will be no such thing as Java dependency drawback :)</p>
+<p>Thank you for your time.</p>
+<h3>Links</h3>
+<ul>
+<li><a href="http://ant.apache.org/" title="Apache Ant Home">Apache Ant</a></li>
+<li><a href="http://www.mozilla.org/rhino/" title="Mozila Rhino Home">Mozila Rhino</a></li>
+<li><a href="http://www.jslint.com/lint.html" title="JSLint Home">JSLint</a></li>
+<li><a href="http://code.google.com/p/js-test-driver/" title="JsTestDrive Home">JsTestDriver</a></li>
+<li><a href="http://pivotal.github.com/jasmine/" title="Jasmine BDD Home">Jasmine</a></li>
+<li><a href="http://code.google.com/closure/compiler/" title="Google Closure Compiler Home">Google Closure Compiler</a></li>
+<li><a href="http://nodejs.org/" title="Node.js Home">Node.js</a></li>
+<li><a href="https://github.com/mishoo/UglifyJS" title="Uglify.js Project">Uglify.js</a></li>
+<li><a href="https://github.com/280north/jake" title="Jake Project">Jake</a></li>
+</ul>
