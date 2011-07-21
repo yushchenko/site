@@ -1,20 +1,21 @@
-### Hi!
+Good [ Morning | Afternoon | Evening | Night ].
 
-My name is Valery Yushchenko. I live in Kiev, Ukraine
-and share my time between favorite work as a Software Engineer,
-studing, surfing Web, reading books, training in the gym and walking or biking around the city.
+I'm Valery Yushchenko. Live in Sydney, Australia. A JavaScript Developer.
 
-You can find details of my professional career in [LinkedIn profile][linkedin].
-I share source code using [Github][github] and sometimes post something
-that seems interesting on [Twitter][twitter].
+Hobbies: web, reading, powerlifting, motorcycling, meditation.
 
-I've created this site to share writings and have fun playing with web technologies.
-All site's source code is open and located [here][src].
+I love [Twitter][twitter] and [G+][googleplus].
 
-If you have any questions, suggestions and so on, you can find my contact details below.
+My [site][src] and [CV][cv] live at [Github][github].
 
-[linkedin]:http://www.linkedin.com/in/yushchenko "LinkedIn profile"
-[twitter]:http://twitter.com/#!/vyushchenko "Twitter"
-[github]:http://github.com/yushchenko "Code on Github"
+[LinkedIn][linkedin] for my colleagues.
 
-[src]:http://github.com/yushchenko/site "http://github.com/yushchenko/site"
+It's all, thank you for your attention.
+
+[twitter]:http://twitter.com/#!/vyushchenko "Thoughts, links, etc."
+[googleplus]:https://plus.google.com/106703830109370818653/posts "Having fun with a social network"
+[linkedin]:http://www.linkedin.com/in/yushchenko "Boring details of my career"
+
+[github]:http://github.com/yushchenko "My projects on Github"
+[src]:http://github.com/yushchenko/site "Source code of this site"
+[cv]:https://github.com/yushchenko/cv "Sources of my CV"

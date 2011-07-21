@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<rss version="2.0"><channel><title>Valery Yushchenko</title><link>http://www.yushchenko.name/</link><description>Articles by Valery Yushchenko</description><lastBuildDate>Thu, 10 Feb 2011 09:50:00 GMT</lastBuildDate><generator>PyRSS2Gen-1.0.0</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>JavaScript Build: Ensuring High Code Quality</title><link>http://www.yushchenko.name/blog/javascript-build</link><description>&lt;h3&gt;Why To Build?&lt;/h3&gt;
+<rss version="2.0"><channel><title>Valery Yushchenko</title><link>http://www.yushchenko.name/</link><description>Articles by Valery Yushchenko</description><lastBuildDate>Thu, 21 Jul 2011 22:15:44 GMT</lastBuildDate><generator>PyRSS2Gen-1.0.0</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>JavaScript Build: Ensuring High Code Quality</title><link>http://www.yushchenko.name/blog/javascript-build</link><description>&lt;h3&gt;Why To Build?&lt;/h3&gt;
 &lt;p&gt;There are two phases in development repeated many times every day: making changes and checking if they work.
 Build is in the middle, it can generate some code as soon as runs automatic code checks.
 In many development environments build is mandatory, you need compile the code to see changes made.
